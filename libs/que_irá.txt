@@ -1,0 +1,2 @@
+archivos php, para el correcto funcionamiento de pages
+funcionalidades, etc
