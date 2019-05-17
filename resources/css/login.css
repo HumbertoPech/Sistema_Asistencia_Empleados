@@ -3,6 +3,8 @@ body, html {
     background-repeat: no-repeat;
 }
 
+
+
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
@@ -152,7 +154,13 @@ body, html {
     height:10em; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
+
   }
+  
+.btn-icon:disabled, .btn-icon:disabled:hover {
+   background: #ccc;
+   cursor: not-allowed;   
+}
 
 .buttons-box{
   margin-left: 5em;
