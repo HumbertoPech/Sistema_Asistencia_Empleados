@@ -1,16 +1,28 @@
+<?php
+session_start();
+//dato de prueba
+$_SESSION['usuario']= 'ua1998';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
+   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-  <link rel="stylesheet" href="..resources/css/login.css">
+  <link rel="stylesheet" href="../../resources/css/login.css">
 
     <!--//Revisar la ruta donde estarán los js //-->
-  <script src="../resources/js/ajaxEmpleado.js"></script>
+  <script src="../../resources/js/ajaxEmpleado.js"></script>
 
 </head>
 <body>
 <div class="container">
+   <div class="box-signout">
+      <button class="btn-signout" onclick="location.href='indexEmpleado.html'"><i class="fa fa-sign-out fa-2x"></i><br>Regresar</button> 
+  </div>
+
   <div class="card card-container">
+
     <form class="form-signin" id="cambioPassword" method="POST">
       <label>
         <h2>Cambio Contrase&ntilde;a</h2>
@@ -39,10 +51,11 @@
 
       document.getElementById("cambioPassword").onsubmit=function () {
           if (validarFormulario(this)){
-              urlPHP= "http://localhost/Sistema_Asistencia_Empleados/operacionesEmpleados.php";
-              cambiarContrasenia("POST",urlPHP,this);
+            //verificarnombre de las carpetas y la ruta
+              urlLocation= "http://localhost/Sistema_Asistencia_Empleados/libs/operacionesEmpleados.php";
+              cambiarContrasenia("POST",urlLocation,this);
           }else{
-              alert("Error en contrase\u00f1a");
+              alert("Error en contrase\u00f1a nueva.Rellenar bien el formulario");
           }
       };
   }
