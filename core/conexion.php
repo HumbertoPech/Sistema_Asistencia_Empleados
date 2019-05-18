@@ -5,9 +5,9 @@ class Conexion{
     private static $defaultInclude = true;
     public function __construct(){
         if(self::$defaultInclude){
-            require_once('config/variables_BD.php');
-        }else{
             require_once('../config/variables_BD.php');
+        }else{
+            require_once('config/variables_BD.php');
         }
         
         $this->conexion_db = new mysqli(DB_HOST, DB_USUARIO, DB_CONTRA, DB_NOMBRE);
