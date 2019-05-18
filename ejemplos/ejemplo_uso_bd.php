@@ -1,6 +1,6 @@
 <?php
     session_start();
-    echo $_SESSION['id_usuario']."JAJAJA";
+    echo $_SESSION['id_usuario']."JAJAJA2";
     echo $_SESSION['url_base'];
     $_SESSION['eliminarImagen'] = true;
     $url_base=$_SESSION['url_base'];
