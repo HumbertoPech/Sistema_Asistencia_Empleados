@@ -1,7 +1,7 @@
 <?php
 session_start();
 //dato de prueba
-$_SESSION['usuario']= 'ua1998';
+$_SESSION['id_usuario']= '1';
 ?>
 
 <!DOCTYPE html>
