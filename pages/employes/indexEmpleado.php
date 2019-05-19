@@ -1,7 +1,6 @@
 <?php
   session_start();
   //dato de prueba
-  $_SESSION['id_usuario']= '1';
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +15,7 @@
     </div>
      
     <div class="row">
-      <div class="col-md-12 buttons-box">
+      <div class="col-md-12 buttons-box"> 
         <button class="btn-icon" id="registrarEntrada" disabled><i class="fa fa-calendar-check-o fa-5x"></i><br> Registrar Entrada</button>
 
         <button class="btn-icon" id="registrarSalida" disabled><i class="fa fa-calendar-times-o fa-5x"></i><br> Registrar Salida</button>

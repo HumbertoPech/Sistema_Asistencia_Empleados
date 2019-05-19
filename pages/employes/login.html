@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="../../resources/css/login.css">
+</head>
+<body onload="startTime()">
+<div class="container">
+  <div class="card card-container">
+    <form class="form-signin" id="form-sign" action="">
+      <span id="reauth-email" class="reauth-email"></span>
+      <label>
+        <h2>Sistema de empleados</h2>
+      </label>
+      <input name="user" type="text" id="inputEmail" class="form-control" placeholder="Usuario" autocomplete="off" required>
+      <input name="pass" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" autocomplete="off" required>
+      <input name="sign" type="submit" value="Iniciar Sesión" class="btn btn-lg btn-primary btn-block btn-signin">
+    </form>               
+  </div>
+  <div class="text-center">
+      <div class="center-block">
+        <h4 name="reloj" id="clock" class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"></h4>
+        <h4 id="date" class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"></h4>     
+      </div>
+  </div>
+</div>
+<script src="../../resources/js/jquery-3.4.1.min.js"></script>
+<script src="../../resources/js/login.js"></script>
+</body>
+</html> 
