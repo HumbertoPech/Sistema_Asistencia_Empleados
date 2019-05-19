@@ -22,6 +22,29 @@ function cambiarContrasenia(method, url,form) {
     xhttp.send(data);
 }
 
+function checkIn(url){
+    var xhttp;
+    var data= new FormData();
+    data.append("operacion","checkIn");
+    if (window.XMLHttpRequest) {
+        // code for modern browsers
+        xhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var respuesta= xhttp.responseText;
+            alert(respuesta);
+        }
+    }
+    xhttp.open("POST", url,true);
+    xhttp.send(data);
+    alert("checkIn done!");
+}
+
 function validarFormulario(form){
     var valido=true;
     var maxCaracteres=6;
@@ -33,3 +56,5 @@ function validarFormulario(form){
     }
     return valido;
 }
+
+
