@@ -22,10 +22,10 @@ function cambiarContrasenia(method, url,form) {
     xhttp.send(data);
 }
 
-function checkIn(url){
+function registrar(url,tipoRegistro){
     var xhttp;
     var data= new FormData();
-    data.append("operacion","checkIn");
+    data.append("operacion",tipoRegistro);
     if (window.XMLHttpRequest) {
         // code for modern browsers
         xhttp = new XMLHttpRequest();
@@ -42,8 +42,8 @@ function checkIn(url){
     }
     xhttp.open("POST", url,true);
     xhttp.send(data);
-    alert("checkIn done!");
 }
+
 
 function validarFormulario(form){
     var valido=true;

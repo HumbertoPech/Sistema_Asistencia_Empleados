@@ -2,6 +2,20 @@
 session_start();
 require_once("consultas.php") ;
 
+switch ($_POST['operacion']) {
+        case 'cambio':
+            cambiarContrasenia();
+            break;
+        case 'checkIn':
+        		checkIn();
+        		break;  
+        case 'checkOut':
+        		checkOut();
+        		break;		 
+        default:
+            break;
+ }
+
 function cambiarContrasenia(){
 	 require_once("consultas.php");
 
@@ -42,65 +56,80 @@ function verificarContrasenia($password,$id_usuario){
 		echo "Empleado no existe";
 		return false;
 	}
-
 }
 
-
-switch ($_POST['operacion']) {
-        case 'cambio':
-            cambiarContrasenia();
-            break;
-        case 'checkIn':
-        		checkIn();
-        		break;   
-        default:
-            break;
- }
-
- function checkIn(){
- 	calcularHorasDiarias(2, date('2019-05-19'));
+ function checkIn(){ 	
+ 		
 }
 
-//TODO pre condición, se hizo check-out.
+function checkOut(){
+	//Revisar porqué la fecha me da un dia después jajaja 
+	$fecha= date("Y-m-d");
+	$id_empleado=1;
+ 	calcularHorasDiarias($id_empleado, $fecha);
+}
+
+// pre condición, se hizo check-out.
 function calcularHorasDiarias($id_empleado,$fecha){
-	$query= "SELECT * FROM trabajo_diario WHERE id = '". $id_empleado. "' AND fecha= ' " . $fecha."'";
+	
+	$query= "SELECT * FROM trabajo_diario WHERE id_empleado = '". $id_empleado. "' AND fecha= ' " . $fecha."'";
 	$registro= consultar($query);
 	if($registro){
-		$horaEntrada= new DateTime($registro['hora_entrada']);
-		$horaSalida = new DateTime($registro['hora_salida']);
-		if($horaEntrada!= NULL && $horaSalida != NULL ){
+		$registroEntrada= new DateTime($registro['hora_entrada']);
+		$registroSalida = new DateTime($registro['hora_salida']);
+
+		if($registroEntrada!= NULL && $registroSalida != NULL ){
 			
-			if( enTiempoTolerancia($horaEntrada)){
-				$intervalo= $horaEntrada->diff($horaSalida);
-				$horas = $intervalo->format("%H.%i");//08.30
-
-				$query= "UPDATE `trabajo_diario` SET `horas_trabajadas`= ' ".$horas."' WHERE `id`= '". $id_empleado . "' AND fecha= ' " . $fecha."'";
-				$actualizacionRealizada = actualizar($query);
-			 	if( $actualizacionRealizada){
-			 		echo "Horas calculadas";
-			 	}else{
-			 		echo "Horas no calculadas";
-			 	}
-				
+			if( enTiempoTolerancia($id_empleado,$registroEntrada,$fecha)){
+				$intervaloTrabajado= $registroEntrada->diff($registroSalida);
+				$horasTrabajadas = $intervaloTrabajado->format("%H.%i");//08.30				
 			}else{
-				//Descontarle los minutos que se pasó al horario de entrada
-				//Calcular cuantas horas trabajó
-				//Descontarle 1.
-			}
-		}
 
+				$horaEntrada= obtenerHorarioEntrada($id_empleado,$fecha);	
+				$retardo= $horaEntrada->diff($registroEntrada);
+				$registroEntrada->sub($retardo);//Descontarle los minutos que se pasó al horario de entrada			
+				$intervaloTrabajado= $registroEntrada->diff($registroSalida);//Calcular cuantas horas trabajó
+				$horasTrabajadas= ($intervaloTrabajado->h)-1;//Descontarle 1.
+			}
+
+			$query= "UPDATE `trabajo_diario` SET `horas_trabajadas`= ' ".$horasTrabajadas."' WHERE `id_empleado`= '".$id_empleado . "' AND fecha= '" .$fecha."'";
+			$actualizacionRealizada = actualizar($query);
+		 	if( $actualizacionRealizada){
+		 		echo "Horas calculadas";
+		 	}else{
+		 		echo "Horas no calculadas";
+		 	}
+		}
 	}else{
-		echo "Empleado no existe";
+
+		echo "Empleado o fecha no existente";
 		return false;
 	}
+}
+//condición: Sí hay hora de entrada existente.
+function obtenerHorarioEntrada($id_empleado,$fecha){
+	$diasSemana = array("domingo","lunes","martes","miercoles","jueves","viernes","sabado");
+ 	$diaRegistro= $diasSemana[$fecha->format("w")];
+	
+	$query="SELECT * FROM horarios WHERE id_empleado = '". $id_empleado. "' AND dia= '" .$diaRegistro."'";
+	$registro= consultar($query);
 
+	if($registro){
+		$horaEntrada= new DateTime($registro['hora_entrada']);
+	    return $horaEntrada;
+	}else{
+		echo "Horario de entrada no encontrado";
+		exit();
+	}
 }
 
-function enTiempoTolerancia($horaRegistroEntrada){
+function enTiempoTolerancia($id_empleado,$horaRegistro,$fecha){
 	$minutosTolerancia= 6;
-	$horaEntrada= //obtener hora de entrada de la BD;
-	$retardo= $horaEntrada->diff($horaRegistroEntrada);
-	if(//los minutos del retardo son mayores que los minutos de tolerancia, entonces false)
-	return true;
+	$horaEntrada= obtenerHorarioEntrada($id_empleado,$fecha);	
+	$retardo= $horaEntrada->diff($horaRegistro);
+	if($retardo->i > $minutosTolerancia){
+		return false;
+	}
+	return true;		
 }
 ?>

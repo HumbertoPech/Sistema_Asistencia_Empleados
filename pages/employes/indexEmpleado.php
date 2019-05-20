@@ -32,11 +32,11 @@
 <script language="JavaScript">
   window.onload= function () {
     
-    document.getElementById("registrarEntrada").disabled=false;
+    document.getElementById("registrarSalida").disabled=false;
     //escribir funcion para verificar la hora de entrada o de salida y ver que botón se activa
-    document.getElementById("registrarEntrada").onclick=function () {
+    document.getElementById("registrarSalida").onclick=function () {
       urlLocation= "http://localhost/Sistema_Asistencia_Empleados/libs/operacionesEmpleados.php";
-          checkIn(urlLocation);
+          registrar(urlLocation, "checkOut");
       };
   }
 
