@@ -22,9 +22,7 @@ function cambiarContrasenia(){
 	 $id_usuario= $_SESSION['id_usuario'];
 	 if( verificarContrasenia($actualPassword,$id_usuario) ){
 				
-	 	$newPassword= $_POST['newPassword'];
-	 	//$hashPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-       
+	 	$newPassword= $_POST['newPassword'];       
 	 	//UPDATE `empleados` SET `contrasena`= '123456' WHERE usuario= 'ua1998';
 	 	$query = "UPDATE `empleados` SET `contrasena`= ' ".$newPassword."' WHERE `id`= '". $id_usuario . "'";
 	 	$actualizacionRealizada = actualizar($query);
@@ -32,6 +30,7 @@ function cambiarContrasenia(){
 	 		echo "Contraseña cambiada";
 	 	}else{
 	 		echo "No se cambió la contraseña";
+	 		return http_response_code(204);
 	 	}
 	 }
 		 
@@ -44,7 +43,7 @@ function verificarContrasenia($password,$id_usuario){
 	$registro= consultar($query);
 	
 	if($registro){
-		if($password==$registro['contrasena']){
+		if(trim($password) == trim($registro['contrasena'])){
 			return true;
 		}else{
 			echo "Contraseña incorrecta";

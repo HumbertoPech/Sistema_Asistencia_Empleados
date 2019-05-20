@@ -13,8 +13,12 @@ function cambiarContrasenia(method, url,form) {
     }
     
     xhttp.onreadystatechange = function() {
+
         if (this.readyState == 4 && this.status == 200) {
             var respuesta= xhttp.responseText;
+            alert(respuesta);
+            location.href= 'indexEmpleado.php';
+        }else if(this.status== 204){
             alert(respuesta);
         }
     }
