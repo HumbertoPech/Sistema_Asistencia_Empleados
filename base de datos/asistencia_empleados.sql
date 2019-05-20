@@ -96,7 +96,7 @@ CREATE TABLE `empleados` (
   `id` int(11) NOT NULL,
   `nombres` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
-  `usuario` varchar(15) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
   `contrasena` varchar(10) NOT NULL,
   `sueldo_base` double NOT NULL,
   `id_estado` int(11) NOT NULL,
