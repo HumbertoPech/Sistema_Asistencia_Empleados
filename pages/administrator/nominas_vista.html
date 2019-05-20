@@ -18,9 +18,10 @@
         <table>
             <tr>
                 <td>
-                    <button> Calcular nómina semanal</button>
+                    <button onclick="validarCalculoNominas();"> Calcular nómina semanal</button>
                 </td>
-                <td>
+                <div id="mensaje_de_exito">
+                </div>
                     <button onclick="location.href='../../libs/generar_reporte_nominas.php'">Exportar nómina semanal a excel</button>
                 </td>
             </tr>

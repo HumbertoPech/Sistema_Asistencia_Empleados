@@ -1,24 +1,18 @@
 <?php
-  date_default_timezone_set("America/Mexico_City");
-  //var_dump(date_default_timezone_get());
-  $fecha_hoy = date("d-m-Y");
-  $fecha_hoy = date('22-04-2019'); //poner en comentarios
-  $fecha_inicio_semana;
-  $fecha_fin_semana;
-  $dias_festivos = array();
-  
+    date_default_timezone_set("America/Mexico_City");
+    $fecha_hoy = date("d-m-Y");
+    //$fecha_hoy = date('22-04-2019'); //poner en comentarios
+    $fecha_inicio_semana;
+    $fecha_fin_semana;
+    $dias_festivos = array();
+    include("../core/conexion.php");
+    session_start();
+    $con = new Conexion();
+    $conexion = $con->get_conexion();  
   //MAIN
   function calcularSueldosSemanales(){
     global $fecha_hoy, $fecha_fin_semana, $fecha_inicio_semana;
-    define('LUNES',1);  
-    $dia_hoy = isLunes($fecha_hoy);
-    $dias_diferencia = 0;
-    if($dia_hoy == LUNES){
-      $fecha_inicio_semana = date("Y-m-d",strtotime($fecha_hoy."- 1 week"));
-    }else{
-      //$dias_diferencia = $dia_hoy - LUNES;
-      //$fecha_inicio_semana = date("Y-m-d",strtotime($fecha_hoy."- 1 week - ".$dias_diferencia." days"));
-    }
+    $fecha_inicio_semana = date("Y-m-d",strtotime($fecha_hoy."- 1 week"));
     $fecha_fin_semana = date("Y-m-d",strtotime($fecha_inicio_semana."+ 4 days"));
     if(!isNominaSemanalCalculada()){
       calcularDiasFestivosEnSemana();
@@ -28,131 +22,221 @@
       echo "</script>";
     }else{
       echo "<script type='text/javascript'>";
-      echo "alert('Ya se calculó previamente el sueldo de esta semana');";
+      echo "alert('Ya se calculo previamente el sueldo de esta semana');";
       echo "</script>";
     }
-    require("views/calculo_nominas_vista.html");
-  }
-  function isLunes($fecha){
-    $fechats = strtotime($fecha); //pasamos a timestamp
-    //el parametro w en la funcion date indica que queremos el dia de la semana
-    //lo devuelve en numero 0 domingo, 1 lunes,....
-    switch (date('w', $fechats)){
-      case 1: return true; break;
-      case 0:
-      case 2: 
-      case 3: 
-      case 4: 
-      case 5:
-      case 6: return false; break;
-    }
+    //require("views/calculo_nominas_vista.html");
   }
 
   function isNominaSemanalCalculada(){
-    include 'conexion.php';
-    $sql = "SELECT * FROM nomina_semanal WHERE fecha_inicio = '$fecha_inicio_semana' AND fecha_termino = '$fecha_fin_semana'";
-    $resultado = $conn->query($sql);
-    while($trabajo_diario = $resultado->fetch_assoc()){
-      echo "si esta calculado";
-      $conn->close();
-      return true;
+    global $fecha_fin_semana, $fecha_inicio_semana, $conexion, $con;
+    $query = "SELECT * FROM nomina_semanal WHERE fecha_inicio = '$fecha_inicio_semana' AND fecha_termino = '$fecha_fin_semana'";
+    if($conexion){
+        $resultado = $conexion->query($query);
+        $filas = $resultado->num_rows;
+        if($filas>0){
+            //$conexion = $con->close_conexion();  
+            return true;
+        }else{
+            //$conexion = $con->close_conexion();  
+            return false;
+        }
+    }else{
+        //$conexion = $con->close_conexion();  
+        return false;
     }
-    echo "No esta calculado";
-    $conn->close();
-    return false;
-  }
+}
 
   function calcularDiasFestivosEnSemana(){
-    include 'conexion.php';
-    global $fecha_inicio_semana, $fecha_fin_semana, $dias_festivos;
+    global $fecha_inicio_semana, $fecha_fin_semana, $dias_festivos, $conexion, $con;
     $sql = "SELECT * FROM dias_festivos WHERE fecha BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana'";
-    $resultado = $conn->query($sql);
-    while( $dia_festivo = $resultado->fetch_assoc()){
-      $dias_festivos[] = date("d-m-Y", strtotime($dia_festivo["fecha"]));
+
+    if($conexion){
+        $resultado = $conexion->query($sql);
+        if (!empty($resultado)) {
+            while($dia_festivo = $resultado->fetch_array()){
+                $dias_festivos[] = date("d-m-Y", strtotime($dia_festivo["fecha"]));
+            }
+        }
+    }else{
+        echo "<script type='text/javascript'>";
+        echo "alert('Error con la conexion de base de datos');";
+        echo "</script>";
     }
-    $conn->close();
-  }
+    //$conexion = $con->close_conexion();  
+}
 
   function calcularSueldoEmpleadoSemanal()
   {
-    include 'conexion.php';
-    global $dias_festivos;
+    global $dias_festivos, $conexion, $con;
     $EMPLEADO_BAJA = 2;
     $HORAS_DIARIAS = 8;
     $sql = "SELECT * FROM empleados WHERE id_estado != $EMPLEADO_BAJA";
-    $resultado = $conn->query($sql);
-    
-    while( $empleado = $resultado->fetch_assoc()){
-      $empleado_info = array();
-      $empleado_info['id'] = $empleado['id'];
-      $empleado_info['nombre'] = $empleado['nombre'];
-      $empleado_info['apellido'] = $empleado['apellido'];
-      $empleado_info['sueldo base'] = $empleado['sueldo_base'];
-      $empleado_info['id estado'] = $empleado['id_estado'];
-      $dias_en_vacaciones = array();
-      $dias_en_vacaciones = getDiasEnVacaciones($empleado['id']);
-      $empleado_info['dias en vacaciones'] = $dias_en_vacaciones;
-      $empleado_info['dias festivos y vacaciones'] = array_unique(array_merge($dias_en_vacaciones, $dias_festivos));
-      //calcular el sueldo
-      $sueldo_semanal = 0;
-      $dias_festivos_vacaciones = sizeof($empleado_info['dias festivos y vacaciones']);
-      $sueldo_semanal = $dias_festivos_vacaciones*$HORAS_DIARIAS*$empleado_info['sueldo base'];
-      //falta buscar lo que se le va a pagar por los dias trabajados
-      $horas_trabajadas = obtenerHorasTrabajadas($empleado['id']);
-      $empleado_info['horas trabajadas'] = $horas_trabajadas;
-      $sueldo_semanal = $sueldo_semanal + $horas_trabajadas*$empleado_info['sueldo base'];
-      $empleado_info['sueldo semanal'] = $sueldo_semanal;
-      var_dump($empleado_info);
-      echo "sueldo semanal   ".$empleado_info['sueldo semanal'];
-      guardarSueldoSemanal($empleado_info);
-    }
+
+    if($conexion){
+        $resultado = $conexion->query($sql);
+        if (!empty($resultado)) {
+            while($empleado = $resultado->fetch_array()){
+                $empleado_info = array();
+                $empleado_info['id'] = $empleado['id'];
+                $empleado_info['nombre'] = $empleado['nombres'];
+                $empleado_info['apellido'] = $empleado['apellidos'];
+                $empleado_info['sueldo base'] = $empleado['sueldo_base'];
+                $empleado_info['id estado'] = $empleado['id_estado'];
+                $dias_en_suspension = array();
+                $dias_en_suspension = getDiasEnSuspension($empleado['id']);
+                $empleado_info['dias en suspension'] = $dias_en_suspension;
+                $dias_en_vacaciones = array();
+                $dias_en_vacaciones = getDiasEnVacaciones($empleado['id']);
+                $empleado_info['dias en vacaciones'] = $dias_en_vacaciones;
+                $empleado_info['dias festivos y vacaciones'] = array_unique(array_merge($dias_en_vacaciones, $dias_festivos));
+                //calcular el sueldo
+                $sueldo_semanal = 0;
+                $dias_festivos_vacaciones = sizeof($empleado_info['dias festivos y vacaciones']);
+
+                $sueldo_semanal = $dias_festivos_vacaciones*$HORAS_DIARIAS*$empleado_info['sueldo base'];
+                //falta buscar lo que se le va a pagar por los dias trabajados
+                $horas_trabajadas = obtenerHorasTrabajadas($empleado['id']);
+                $empleado_info['horas trabajadas'] = $horas_trabajadas;
+                $sueldo_semanal = $sueldo_semanal + $horas_trabajadas*$empleado_info['sueldo base'];
+                $empleado_info['sueldo semanal'] = $sueldo_semanal;
+                //var_dump($empleado_info);
+                guardarSueldoSemanal($empleado_info);
+            }
+        }
+    }else{
+        echo "<script type='text/javascript'>";
+        echo "alert('Error con la conexion de base de datos');";
+        echo "</script>";
+    }    
     //var_dump(sizeof($dias_festivos));
-    $conn->close();
+    //$conexion = $con->close_conexion();  
+}
+function getDiasEnSuspension($id_empleado){
+    global $fecha_inicio_semana, $fecha_fin_semana, $conexion, $con;
+    $sql = "SELECT * FROM suspension_empleados WHERE id_empleado = $id_empleado AND (fecha_inicio OR fecha_termino BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana')";
+    $suspensiones_empleado = array();
+
+    if($conexion){
+        $resultado = $conexion->query($sql);
+        if (!empty($resultado)) {
+            while($suspension_empleado = $resultado->fetch_array()){
+                $fechaInicio = $suspension_empleado["fecha_inicio"];
+                $fechaFin = $suspension_empleado["fecha_termino"];
+                $fechaMostrar = date("d-m-Y", strtotime($fechaInicio));
+                while(strtotime($fechaMostrar) <= strtotime($fechaFin)) {
+                    $suspensiones_empleado[] = $fechaMostrar;
+                    $fechaMostrar = date("d-m-Y", strtotime($fechaMostrar . " + 1 day"));
+                }                
+            }
+        }
+    }else{
+        echo "<script type='text/javascript'>";
+        echo "alert('Error con la conexion de base de datos');";
+        echo "</script>";
+    }
+    //$conexion = $con->close_conexion();  
+    return $suspensiones_empleado;
   }
 
   function getDiasEnVacaciones($id_empleado){
-    include 'conexion.php';
-    global $fecha_inicio_semana, $fecha_fin_semana;
-    $sql = "SELECT * FROM vacaciones_empleados WHERE id_empleado = $id_empleado AND fecha_inicio OR fecha_termino BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana'";
-    $resultado = $conn->query($sql);
+    global $fecha_inicio_semana, $fecha_fin_semana, $conexion, $con;
+    $sql = "SELECT * FROM vacaciones_empleados WHERE id_empleado = $id_empleado AND (fecha_inicio OR fecha_termino BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana')";
     $vacaciones_empleado = array();
-    while( $vacacion_empleado = $resultado->fetch_assoc()){
-      $fechaInicio = $vacacion_empleado["fecha_inicio"];
-      $fechaFin = $vacacion_empleado["fecha_termino"];
-      $fechaMostrar = date("d-m-Y", strtotime($fechaInicio));
-      while(strtotime($fechaMostrar) <= strtotime($fechaFin)) {
-        $vacaciones_empleado[] = $fechaMostrar;
-        $fechaMostrar = date("d-m-Y", strtotime($fechaMostrar . " + 1 day"));
-      }
+    if($conexion){
+        $resultado = $conexion->query($sql);
+        if (!empty($resultado)) {
+            while($vacacion_empleado = $resultado->fetch_array()){
+                $fechaInicio = $vacacion_empleado["fecha_inicio"];
+                $fechaFin = $vacacion_empleado["fecha_termino"];
+                $fechaMostrar = date("d-m-Y", strtotime($fechaInicio));
+                while(strtotime($fechaMostrar) <= strtotime($fechaFin)) {
+                    $vacaciones_empleado[] = $fechaMostrar;
+                    $fechaMostrar = date("d-m-Y", strtotime($fechaMostrar . " + 1 day"));
+                }                
+            }
+        }
+    }else{
+        echo "<script type='text/javascript'>";
+        echo "alert('Error con la conexion de base de datos');";
+        echo "</script>";
     }
-    $conn->close();
+    //$conexion = $con->close_conexion();  
     return $vacaciones_empleado;
   }
   
   function obtenerHorasTrabajadas($id_empleado){
-    include 'conexion.php';
-    global $fecha_fin_semana, $fecha_inicio_semana;//CHECAR
-    $sql = "SELECT * FROM trabajo_diario WHERE en_nomina = 'SI' AND id_empleado = '$id_empleado' AND fecha BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana'";
-    $resultado = $conn->query($sql);
+    global $fecha_fin_semana, $fecha_inicio_semana, $conexion, $con;
+    $sql = "SELECT * FROM trabajo_diario WHERE horas_trabajadas is not null AND id_empleado = '$id_empleado' AND fecha BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana'";
     $horas_trabajadas = 0;
-    while($trabajo_diario = $resultado->fetch_assoc()){
-      var_dump($trabajo_diario);
-      $horas_trabajadas = $horas_trabajadas + $trabajo_diario['horas_trabajadas'];
+
+    if($conexion){
+        $resultado = $conexion->query($sql);
+        if (!empty($resultado)) {
+            while($trabajo_diario = $resultado->fetch_array()){
+                //var_dump($trabajo_diario);
+                $horas_trabajadas = $horas_trabajadas + $trabajo_diario['horas_trabajadas'];       
+            }
+        }
+    }else{
+        echo "<script type='text/javascript'>";
+        echo "alert('Error con la conexion de base de datos');";
+        echo "</script>";
     }
-    $conn->close();
+    //$conexion = $con->close_conexion(); 
     return $horas_trabajadas;
   }
   function guardarSueldoSemanal($empleado){
-    include 'conexion.php';
-    global $fecha_fin_semana, $fecha_inicio_semana, $dias_festivos;
+    global $fecha_fin_semana, $fecha_inicio_semana, $dias_festivos, $conexion, $con;
     $num_dias_festivos = sizeof($empleado['dias festivos y vacaciones']);
     $id_empleado = $empleado['id'];
     $horas_trabajadas = $empleado['horas trabajadas'];
     $sueldo_semanal = $empleado['sueldo semanal'];
     $sql = "INSERT INTO nomina_semanal (id_empleado, horas_trabajadas, sueldo_total, dias_festivos, fecha_inicio, fecha_termino) VALUES ('$id_empleado', '$horas_trabajadas', '$sueldo_semanal', '$num_dias_festivos', '$fecha_inicio_semana', '$fecha_fin_semana')";
-    $resultado = $conn->query($sql);
-    $conn->close();
-  }
-  calcularSueldosSemanales();
+    //$resultado = $conn->query($sql);
+    $HORAS_DIARIAS = 8;
+    if($conexion){
+        $resultado = $conexion->query($sql);
+        if (!$resultado) {
+            echo "<script type='text/javascript'>";
+            echo "alert('Error con la consulta de base de datos');";
+            echo "</script>";
+        }else{
+            $last_id_nomina_semanal = $conexion->insert_id;
+            foreach ($dias_festivos as &$valor) {
+                $fecha = date("Ymd", strtotime($valor));
+                $sueldo_pagado = $empleado['sueldo base']*$HORAS_DIARIAS;
+                $sql2 = "INSERT INTO dias_nomina_semanal (id_nomina_semanal, fecha, tipo, pago) VALUES ($last_id_nomina_semanal, $fecha, 'Dia festivo', $sueldo_pagado)";
+                $resultado2 = $conexion->query($sql2);
 
+            }
+
+            foreach ($empleado['dias en vacaciones'] as &$valor) {
+                $fecha = date("Ymd", strtotime($valor));
+                $sueldo_pagado = $empleado['sueldo base']*$HORAS_DIARIAS;
+                $sql3 = "INSERT INTO dias_nomina_semanal (id_nomina_semanal, fecha, tipo, pago) VALUES ($last_id_nomina_semanal, $fecha, 'Dia de vacacion', $sueldo_pagado)";
+                $resultado3 = $conexion->query($sql3);
+            }
+
+            var_dump($empleado['dias en suspension']);
+            foreach ($empleado['dias en suspension'] as &$valor) {
+                $fecha = date("Ymd", strtotime($valor));
+                $sql4 = "INSERT INTO dias_nomina_semanal(id_nomina_semanal, tipo, fecha, pago) VALUES ($last_id_nomina_semanal,'Dia de suspension',$fecha,0)";
+                $resultado4 = $conexion->query($sql4);
+                if (!$resultado4) {
+                    echo "<script type='text/javascript'>";
+                    echo "alert('Error con el query de base de datos');";
+                    echo "</script>";
+                }
+     
+            }
+        }
+    }else{
+        echo "<script type='text/javascript'>";
+        echo "alert('Error con la conexion de base de datos');";
+        echo "</script>";
+    }
+    //$conexion = $con->close_conexion();  
+}
+  calcularSueldosSemanales();
 ?>
