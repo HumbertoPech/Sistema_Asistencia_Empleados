@@ -8,8 +8,6 @@
     $con = new Conexion();
     $conexion = $con->get_conexion();
     $id = $_POST['variable'];
-    echo "eliminar".$id;
-    echo "AELIMINAR";
     /*echo "<script type='text/javascript'>
             alert('$id.aaa.$nuevo');
     </script>";*/   
@@ -24,4 +22,7 @@
     }
     header("vista/perfil_usuarioVista.php");
     mysqli_close($conexion);
+
+
+    
 ?>
