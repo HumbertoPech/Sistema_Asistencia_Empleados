@@ -47,7 +47,7 @@ function verificarContrasenia($password,$id_usuario){
 switch ($_POST['operacion']) {
         case 'cambio':
             cambiarContrasenia();
-            break;
+			break;
         default:
             break;
  }
