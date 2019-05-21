@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="../../resources/css/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <section id="form">
+    <div class="container pt-5 pb-5">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h3 class="text-uppercase">Registro de empleados</h3>
+          <p>Ingresa los datos del empleado</p>
+            <div class="row">
+              <div class="col-md-12">
+                <form id="form-sign">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <h5 class="text-left">Nombres</h5>
+                      <input name="nombres" type="name" class="form-control" id="inputDado" placeholder="Nombres" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <h5 class="text-left">Apellidos</h5>
+                      <input name="apellidos" type="name" class="form-control" id="inputDado" placeholder="Apellidos" autocomplete="off">
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-8">
+                        <h5 class="text-left">Fecha de Nacimiento</h5>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <input name="fechanac" class="form-control" type="date" name="bday" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <h5 class="text-left">Dirección</h5>
+                      <input name="direccion" type="name" class="form-control" id="inputDado" placeholder="Dirección" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <h5 class="text-left">Sueldo</h5>
+                      <input name="sueldo" type="name" class="form-control" id="inputDado" placeholder="Sueldo" autocomplete="off">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <h5 class="text-left">Sexo</h5>
+                      <select name="sexo" class="form-control">
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <h5 class="text-left">Estado civil</h5>
+                        <select name="estadocivil" class="form-control">
+                          <option value="Soltero">Soltero(a)</option>
+                          <option value="Casado">Casado(a)</option>
+                          <option value="Viudo">Viudo(a)</option>
+                          <option value="Divorciado">Divorciado(a)</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h5 class="text-left">CURP</h5>
+                        <input name="curp" type="name" class="form-control" id="inputDado" placeholder="CURP" autocomplete="off">
+                    </div>
+                    <input type="submit" value="Registrar" class="btn btn-primary mt-5 mx-auto btn-sign">
+                  </div>  
+                </form>  
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<script src="../../resources/js/jquery-3.4.1.min.js"></script>
+<script src="../../resources/js/registro.js"></script>
+</body>
+</html> 
