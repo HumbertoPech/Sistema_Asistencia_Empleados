@@ -15,7 +15,6 @@
 		<th>Fecha inicio de semana</th>
 		<th>Fecha termino de semana</th>
 		<th>Sueldo pagado</th>
-		<th>Numero de dias festivos y vacaciones</th>
 		<th>Dias de la semana de nomina</th>
 	</tr>
 	<?php 
@@ -31,7 +30,6 @@
 							<td><?php echo $row['fecha_inicio']; ?></td>
 							<td><?php echo $row['fecha_termino']; ?></td>
 							<td><?php echo $row['sueldo_total']; ?></td>
-							<td><?php echo $row['dias_festivos']; ?></td>
 							<?php
 							$id_nomina_semanal = $row['id_ns'];
 							$query2 = "SELECT * from dias_nomina_semanal where id_nomina_semanal = '$id_nomina_semanal'";

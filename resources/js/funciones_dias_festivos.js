@@ -15,7 +15,7 @@ function busqueda(){
     });
 }
 
-function validarFecha(fecha_inicio, fecha_fin){
+function validarDiaFestivo(fecha_inicio, fecha_fin){
     var fecha_ini = new Date(fecha_inicio);
     var fecha_fini = new Date(fecha_fin);
     if(fecha_ini<=fecha_fini){
@@ -62,6 +62,9 @@ function validarCalculoNominas(){
     var date = new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"});
     console.log(date);
     var dia_hoy = new Date(date);
+    var parametros = {
+        "par" : "ji"
+    };
     if(dia_hoy.getDay()==LUNES){
         var texto = document.getElementById("txtnom").value;
         var parametros = {
@@ -74,6 +77,7 @@ function validarCalculoNominas(){
             success: function(response){
                 $("#mensaje_de_exito").html(response);
             }
+    
         });           
     }else{
         alert("No puedes calcular la nomina en otro día que no sea Lunes");

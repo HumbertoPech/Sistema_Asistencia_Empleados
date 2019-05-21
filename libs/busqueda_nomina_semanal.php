@@ -25,7 +25,6 @@ $tmp = "<table class='table table-hover style='border='1'; width=70%'>
                 <th>Nombre de empleado</th>
                 <th>Horas trabajadas</th>
                 <th>Sueldo pagado</th>
-                <th>Dias festivos y vacaciones</th>
                 <th>Fecha inicio de semana</th>
                 <th>Fecha fin de semana</th>
                 <th>Información de días</th>
@@ -39,7 +38,6 @@ if($conexion){
             <td>".$row["nombres"]." ".$row["apellidos"]."</td>
             <td>".$row["horas_trabajadas"]."</td>
             <td>"."$".$row["sueldo_total"]."</td>
-            <td>".$row["dias_festivos"]."</td>
             <td>".$row["fecha_inicio"]."</td>
             <td>".$row["fecha_termino"]."</td>";
             

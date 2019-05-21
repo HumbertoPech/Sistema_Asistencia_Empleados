@@ -188,11 +188,10 @@ function getDiasEnSuspension($id_empleado){
   }
   function guardarSueldoSemanal($empleado){
     global $fecha_fin_semana, $fecha_inicio_semana, $dias_festivos, $conexion, $con;
-    $num_dias_festivos = sizeof($empleado['dias festivos y vacaciones']);
     $id_empleado = $empleado['id'];
     $horas_trabajadas = $empleado['horas trabajadas'];
     $sueldo_semanal = $empleado['sueldo semanal'];
-    $sql = "INSERT INTO nomina_semanal (id_empleado, horas_trabajadas, sueldo_total, dias_festivos, fecha_inicio, fecha_termino) VALUES ('$id_empleado', '$horas_trabajadas', '$sueldo_semanal', '$num_dias_festivos', '$fecha_inicio_semana', '$fecha_fin_semana')";
+    $sql = "INSERT INTO nomina_semanal (id_empleado, horas_trabajadas, sueldo_total, fecha_inicio, fecha_termino) VALUES ('$id_empleado', '$horas_trabajadas', '$sueldo_semanal', '$fecha_inicio_semana', '$fecha_fin_semana')";
     //$resultado = $conn->query($sql);
     $HORAS_DIARIAS = 8;
     if($conexion){
