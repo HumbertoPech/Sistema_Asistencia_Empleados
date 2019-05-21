@@ -1,13 +1,12 @@
 <?php
 session_start();
 //dato de prueba
-$_SESSION['id_usuario']= '1';
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="UTF-8">
+   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
   <link rel="stylesheet" href="../../resources/css/login.css">
 
@@ -18,7 +17,7 @@ $_SESSION['id_usuario']= '1';
 <body>
 <div class="container">
    <div class="box-signout">
-      <button class="btn-signout" onclick="location.href='indexEmpleado.html'"><i class="fa fa-sign-out fa-2x"></i><br>Regresar</button> 
+      <button class="btn-signout" onclick="location.href='indexEmpleado.php'"><i class="fa fa-sign-out fa-2x"></i><br>Regresar</button> 
   </div>
 
   <div class="card card-container">

@@ -5,7 +5,8 @@ class Conexion{
     private static $defaultInclude = true;
     public function __construct(){
         if(self::$defaultInclude){
-            require_once('../config/variables_DB.php');
+            require_once($_SERVER['DOCUMENT_ROOT'].'/Sistema_Asistencia_Empleados/config/variables_DB.php');
+            //require_once('../config/variables_DB.php');
         }else{
             require_once('config/variables_DB.php');
         }
@@ -21,9 +22,11 @@ class Conexion{
     public function get_conexion(){
         return $this->conexion_db;
     }
+
     public function close_conexion(){
         $this->conexion_db->close();
     }
+    
     public static function setDefaultInclude($bol){
         self::$defaultInclude = $bol;
     }
