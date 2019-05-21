@@ -10,7 +10,7 @@ function consultar($query){
         $resultado = $conexion->query($query);
         if (!empty($resultado)) {
             while($row = $resultado->fetch_assoc()){                     
-                $arrayRespuesta[]=$row;
+                $arrayRespuesta=$row;
             }
         }else{
             $arrayRespuesta["error"] = "No se encontro información en la base de datos.";

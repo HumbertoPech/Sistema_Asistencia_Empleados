@@ -5,7 +5,7 @@
 
 require_once("../../config/config.php");
 require_once(LIBS_PATH."consultas.php");
-$data = consultar("SELECT * FROM empleados where id = 1")[0];
+$data = consultar("SELECT * FROM empleados where id = 1");
 $xs = consultar("SELECT * FROM horarios where id_empleado = 1");
 //var_dump($data);
 //var_dump($xs);
@@ -142,7 +142,7 @@ $xs = consultar("SELECT * FROM horarios where id_empleado = 1");
                                                 echo "<tr><th scope='row'>$tipo</th>";   
                                                 foreach($dias_de_la_semana as $dia){
                                                     $query = "SELECT * FROM horarios WHERE id_empleado = 1 AND dia = '$dia'";
-                                                    $informacion_dia = consultar($query)[0];
+                                                    $informacion_dia = consultar($query);
                                                     //$name = $nombre_bd.":".$dia;
                                                     $name = $nombre_bd.$contador;
                                                     echo "<td> <input type='time' class='form-control inputsHorarioPersonal' name='$name' id='$name' value=".$informacion_dia["$nombre_bd"]."></td>";
@@ -168,7 +168,7 @@ $xs = consultar("SELECT * FROM horarios where id_empleado = 1");
                 <div class="p-2" id="botonIntentos">
                     <?php
                         $query = "SELECT numero_intentos FROM empleado_intentos WHERE id_empleado=".$data['id'];
-                        $empleadoIntentos = consultar($query)[0];
+                        $empleadoIntentos = consultar($query);
                         if($empleadoIntentos['numero_intentos']>3){
                             echo '<button  type="button" class="btn btn-secondary" onClick="resetIntentosUsuario(this)">Reset Intentos</button>';
                         }else{
@@ -181,7 +181,7 @@ $xs = consultar("SELECT * FROM horarios where id_empleado = 1");
                     <?php
                     //cambiar -> usar método JavasScript: Con un input hidden en que estado está
                         $query = "SELECT nombre FROM estados WHERE id =". $data['id_estado'];
-                        $estado = consultar($query)[0];
+                        $estado = consultar($query);
                         if($estado['nombre']=="activo"){
                             echo "<button type='button' name = 'baja' id = 'baja' class='btn btn-danger' onClick = 'cambiarEstadoEmpleado("."activo".","."baja".")'>Dar de baja</button>";
                             echo "<button type='button' name = 'activo' id = 'activo' class='btn btn-success' style='display:none;' onClick = 'cambiarEstadoEmpleado("."baja".","."activo".")'>Activar</button>";
