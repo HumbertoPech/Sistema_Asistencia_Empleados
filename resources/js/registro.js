@@ -18,6 +18,7 @@ jQuery(document).on('submit','#form-sign',function(event){
             location.href= 'datosUsuario.html';
             localStorage.setItem('usuario',respuesta.user);
             localStorage.setItem('password',respuesta.password);
+            localStorage.setItem('datos',JSON.stringify(respuesta.datosUsuario));
         }
         else{
             alert('Hay error con los datos ingresados. Intentalo de nuevo.');
