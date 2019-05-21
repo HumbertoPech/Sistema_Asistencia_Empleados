@@ -27,7 +27,7 @@ function comprobarContrasena(){
     $contrasenaRecibida = $_POST['contrasenaAdmin'];
     //ver si se encripta la contraseña
     $sql = "SELECT contrasena FROM administrador WHERE id = 1";
-    $contrasenaAdmin=consultar($sql)[0]['contrasena'];
+    $contrasenaAdmin=consultar($sql)['contrasena'];
     $resultado['resultado'] = false;
     if($contrasenaAdmin == $contrasenaRecibida){
         $resultado['resultado'] = true;
@@ -60,12 +60,13 @@ function actualizarInformacionEmpleado(){
     $apellidos = $_POST['apellidos'];
     $sueldo_base = $_POST['sueldo_base'];
     $direccion = $_POST['direccion'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $sexo = $_POST['sexo'];
     $estado_civil = $_POST['estado_civil'];
     $curp = $_POST['curp'];
     $fecha_inicio = $_POST['fecha_inicio'];
     $sql = "UPDATE empleados SET nombres = '$nombres', apellidos = '$apellidos', sueldo_base = '$sueldo_base', direccion = '$direccion',".
-    "sexo = '$sexo', estado_civil = '$estado_civil', curp = '$curp', fecha_inicio = '$fecha_inicio' WHERE id = ".$id_usuario;
+    "fecha_nacimiento = '$fecha_nacimiento', sexo = '$sexo', estado_civil = '$estado_civil', curp = '$curp', fecha_inicio = '$fecha_inicio' WHERE id = ".$id_usuario;
     json_encode(actualizar($sql));
 }
 
