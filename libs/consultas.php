@@ -1,7 +1,7 @@
 <?php
-
+include_once('../core/conexion.php');
 function consultar($query){
-	include_once('../core/conexion.php'); 
+	 
     $conector = new Conexion();
     $conexion= $conector ->get_conexion();
 
@@ -32,4 +32,13 @@ function actualizar($query){
      $conector->close_conexion(); 
 }
 
+function insertar($query){
+    $conector = new Conexion();
+      $conexion= $conector ->get_conexion(); 
+     if($conexion){
+         $resultado= $conexion->query($query);
+          return $resultado;
+     }
+     $conector->close_conexion();
+}
 ?>
