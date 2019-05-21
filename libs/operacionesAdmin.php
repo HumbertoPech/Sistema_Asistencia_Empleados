@@ -1,6 +1,6 @@
 <?php
 function generador_contrasena(){
-	return mt_rand(1000, 9999);
+	return mt_rand(100000, 999999);
   }
   
 function generador_usuario($nombres,$apellidos){

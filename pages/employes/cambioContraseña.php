@@ -17,7 +17,7 @@ session_start();
 <body>
 <div class="container">
    <div class="box-signout">
-      <button class="btn-signout" onclick="location.href='indexEmpleado.html'"><i class="fa fa-sign-out fa-2x"></i><br>Regresar</button> 
+      <button class="btn-signout" onclick="location.href='indexEmpleado.php'"><i class="fa fa-sign-out fa-2x"></i><br>Regresar</button> 
   </div>
 
   <div class="card card-container">
