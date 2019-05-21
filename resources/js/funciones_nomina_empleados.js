@@ -3,7 +3,6 @@ function busqueda(){
     var parametros = {
         "texto" : texto
     };
-
     $.ajax({
         data: parametros,
         url: "../../libs/busqueda_nomina_semanal.php",
@@ -41,7 +40,6 @@ function busquedaPorFecha(){
                 "fecha_inicio" : fecha_inicio,
                 "fecha_fin" : fecha_fin
             };
-        
             $.ajax({
                 data: parametros,
                 url: "../../libs/busqueda_nomina_semanal.php",
@@ -62,7 +60,7 @@ function validarCalculoNominas(){
     var date = new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"});
     console.log(date);
     var dia_hoy = new Date(date);
-    if(dia_hoy.getDay()==LUNES){
+    if(dia_hoy.getDay()!=LUNES){
         var texto = document.getElementById("txtnom").value;
         var parametros = {
             "texto" : texto,

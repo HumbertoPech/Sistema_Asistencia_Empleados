@@ -4,7 +4,7 @@
 	include('../core/conexion.php');
 	$con=new Conexion();
 	$conexion = $con->get_conexion();  
-	$query = "SELECT emp.nombres, emp.apellidos, emp.id as emp_id, ns.id as id_ns, ns.horas_trabajadas, ns.sueldo_total, ns.dias_festivos, ns.fecha_termino, ns.fecha_inicio from empleados emp  inner join nomina_semanal ns on emp.id = ns.id_empleado ORDER BY fecha_inicio ASC";
+	$query = "SELECT emp.nombres, emp.apellidos, emp.id as emp_id, ns.id as id_ns, ns.horas_trabajadas, ns.sueldo_total, ns.fecha_termino, ns.fecha_inicio from empleados emp  inner join nomina_semanal ns on emp.id = ns.id_empleado ORDER BY fecha_inicio ASC";
 ?>
 
 <table border="1">

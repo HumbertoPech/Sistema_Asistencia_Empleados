@@ -1,23 +1,22 @@
 <?php
-include("../core/conexion.php");
-session_start();
+require '../core/conexion.php';
+//session_start();
 $con = new Conexion();
 $conexion = $con->get_conexion();  
-$query = "SELECT emp.nombres, emp.apellidos, emp.id, ns.id as id_ns, ns.horas_trabajadas, ns.sueldo_total, ns.dias_festivos, ns.fecha_termino, ns.fecha_inicio from empleados emp  inner join nomina_semanal ns on emp.id = ns.id_empleado ORDER BY fecha_inicio ASC";
-
+$query = "SELECT emp.nombres, emp.apellidos, emp.id, ns.id as id_ns, ns.horas_trabajadas, ns.sueldo_total, ns.fecha_termino, ns.fecha_inicio from empleados emp  inner join nomina_semanal ns on emp.id = ns.id_empleado";
 if($_POST["texto"] != ""){
-    $query = "SELECT emp.nombres, emp.apellidos, emp.id, ns.id as id_ns, ns.horas_trabajadas, ns.sueldo_total, ns.dias_festivos, ns.fecha_termino, ns.fecha_inicio from empleados emp inner join nomina_semanal ns on emp.id = ns.id_empleado AND CONCAT(emp.nombres, ' ',emp.apellidos) LIKE '%".$_POST["texto"]."%' ORDER BY  fecha_inicio ASC";
+    $query = "SELECT emp.nombres, emp.apellidos, emp.id, ns.id as id_ns, ns.horas_trabajadas, ns.sueldo_total, ns.fecha_termino, ns.fecha_inicio from empleados emp inner join nomina_semanal ns on emp.id = ns.id_empleado AND CONCAT(emp.nombres, ' ',emp.apellidos) LIKE '%".$_POST["texto"]."%'";
 
     if(isset($_POST["fecha_inicio"]) && isset($_POST["fecha_fin"])){
         $fecha_inicio = $_POST["fecha_inicio"];
         $fecha_fin = $_POST["fecha_fin"];
-        $query .= " and ns.fecha_inicio BETWEEN '$fecha_inicio' AND '$fecha_fin' and ns.fecha_termino BETWEEN  '$fecha_inicio' AND '$fecha_fin'";
+        $query .= " and ns.fecha_inicio BETWEEN '$fecha_inicio' AND '$fecha_fin' and ns.fecha_termino BETWEEN  '$fecha_inicio' AND '$fecha_fin' ORDER BY fecha_inicio ASC";
     }
 }else{
     if(isset($_POST["fecha_inicio"]) && isset($_POST["fecha_fin"])){
         $fecha_inicio = $_POST["fecha_inicio"];
         $fecha_fin = $_POST["fecha_fin"];
-        $query .= " and ns.fecha_inicio BETWEEN '$fecha_inicio' AND '$fecha_fin' and ns.fecha_termino BETWEEN  '$fecha_inicio' AND '$fecha_fin'";
+        $query .= " and ns.fecha_inicio BETWEEN '$fecha_inicio' AND '$fecha_fin' and ns.fecha_termino BETWEEN  '$fecha_inicio' AND '$fecha_fin' ORDER BY fecha_inicio ASC";
     }
 }
 $tmp = "<table class='table table-hover style='border='1'; width=70%'>

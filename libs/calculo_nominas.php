@@ -6,7 +6,6 @@
     $fecha_fin_semana;
     $dias_festivos = array();
     include("../core/conexion.php");
-    session_start();
     $con = new Conexion();
     $conexion = $con->get_conexion();  
   //MAIN
@@ -25,7 +24,6 @@
       echo "alert('Ya se calculo previamente el sueldo de esta semana');";
       echo "</script>";
     }
-    //require("views/calculo_nominas_vista.html");
   }
 
   function isNominaSemanalCalculada(){
@@ -35,14 +33,11 @@
         $resultado = $conexion->query($query);
         $filas = $resultado->num_rows;
         if($filas>0){
-            //$conexion = $con->close_conexion();  
             return true;
         }else{
-            //$conexion = $con->close_conexion();  
             return false;
         }
     }else{
-        //$conexion = $con->close_conexion();  
         return false;
     }
 }
@@ -63,7 +58,6 @@
         echo "alert('Error con la conexion de base de datos');";
         echo "</script>";
     }
-    //$conexion = $con->close_conexion();  
 }
 
   function calcularSueldoEmpleadoSemanal()
@@ -217,7 +211,6 @@ function getDiasEnSuspension($id_empleado){
                 $resultado3 = $conexion->query($sql3);
             }
 
-            var_dump($empleado['dias en suspension']);
             foreach ($empleado['dias en suspension'] as &$valor) {
                 $fecha = date("Ymd", strtotime($valor));
                 $sql4 = "INSERT INTO dias_nomina_semanal(id_nomina_semanal, tipo, fecha, pago) VALUES ($last_id_nomina_semanal,'Dia de suspension',$fecha,0)";
@@ -235,7 +228,7 @@ function getDiasEnSuspension($id_empleado){
         echo "alert('Error con la conexion de base de datos');";
         echo "</script>";
     }
-    //$conexion = $con->close_conexion();  
+    $conexion = $con->close_conexion();  
 }
   calcularSueldosSemanales();
 ?>

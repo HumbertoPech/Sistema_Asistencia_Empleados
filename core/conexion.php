@@ -1,6 +1,5 @@
 <?php
 class Conexion{
-    
     private $conexion_db;
     private static $defaultInclude = true;
     public function __construct(){
