@@ -2,16 +2,14 @@
 ?>
 <nav class="navbar navbar-dark bg-dark"> 
     <div class="container">
-        <a href=""  class="navbar-brand">Administración de Empleados</a>
+        <a href=""  class="navbar-brand">Solución de Pendientes de Empleados</a>
     </div>
 </nav>
-<body onload="busqueda();">
+<body onload="mostrarPendientes();">
     <div class="container p-4">
         <div class="buscador-padre">
             <div class="buscador-hijo">
-                    <input type="text" id="txtnom" name="txtnom" class="form-control" placeholder="Buscar empleado..." value="" onkeyup="busqueda();"></input>
-                <script type="text/javascript" src="../../resources/js/funciones_buscar_empleados.js"></script>
-
+                <script type="text/javascript" src="../../resources/js/funciones_solucionar_pendientes.js"></script>
             </div>
         </div>
         <div id="datos">
@@ -26,5 +24,3 @@
 
     <?php require("../../resources/html/footer_admin_empleados.html");?>
 </body>
-
-
