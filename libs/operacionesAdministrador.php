@@ -1,4 +1,9 @@
 <?php
+/**
+ * Las variables son pasadas mediante la variable global $_POST[] por el navegador,
+ * entre estas variables se encuentra una llamada 'operacion', esta define que función es requerida
+ * para generar una salida en formato JSON, que será leído por el navegador (mediante AJAX)
+ */
 if(isset($_POST['operacion'])){
     switch ($_POST['operacion']) {
         case 'comprobarContrasena':
@@ -21,6 +26,10 @@ if(isset($_POST['operacion'])){
     }
 }
 
+/**
+ * Comprueba la contraseña del administrador. Devuelve true si la contraseña recibida es
+ * la misma que se encuentra en la BD.
+ */
 function comprobarContrasena(){
     require_once("../config/config.php");
     require_once(LIBS_PATH."consultas.php");
@@ -35,6 +44,10 @@ function comprobarContrasena(){
     echo json_encode($resultado);
 }
 
+/**
+ * Formatea los intentos de inicio de sesión de los usuarios a 0. Devuelve el número de
+ * filas actualizadas en la bd.
+ */
 function resetIntentosUsuario(){
     require_once("../config/config.php");
     require_once(LIBS_PATH."consultas.php");
@@ -43,6 +56,10 @@ function resetIntentosUsuario(){
     json_encode(actualizar($sql));
 }
 
+/**
+ * Cambia el estado del empleaddo (de baja a activo, o viceversa), dependiendo de lo que fue enviado.
+ * Devuelve las filas afectadas.
+ */
 function cambiarEstadoEmpleado(){
     require_once("../config/config.php");
     require_once(LIBS_PATH."consultas.php");
@@ -52,6 +69,10 @@ function cambiarEstadoEmpleado(){
     json_encode(actualizar($sql));
 }
 
+/**
+ * Actualiza la información principal del empleado. 
+ * Devuelve las filas afectadas.
+ */
 function actualizarInformacionEmpleado(){
     require_once("../config/config.php");
     require_once(LIBS_PATH."consultas.php");
@@ -70,6 +91,10 @@ function actualizarInformacionEmpleado(){
     json_encode(actualizar($sql));
 }
 
+/**
+ * Actualiza el horario del empleado, de acuerdo al día enviado.
+ * Devuelve el número de filas afectadas.
+ */
 function actualizarHorarioEmpleado(){
     require_once("../config/config.php");
     require_once(LIBS_PATH."consultas.php");
