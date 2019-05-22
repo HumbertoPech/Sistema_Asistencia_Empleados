@@ -2,6 +2,7 @@
 /**
  * @author Gerardo Hau 
  * ,
+ * Fecha ultimo cambio: 22 de mayo de 2019 por Gerardo Hau
  * Se realiza mediante un metodo POST, con Ajax, la recepción de datos
  * que permite al empleado ingresar al sistema
  * Se realizan las siguientes comprobaciones:
