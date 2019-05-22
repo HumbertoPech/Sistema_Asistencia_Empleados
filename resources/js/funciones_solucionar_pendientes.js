@@ -15,3 +15,7 @@ function mostrarPendientes(){
     });
 }
 
+function solucionarPendiente(){
+}
+
+
