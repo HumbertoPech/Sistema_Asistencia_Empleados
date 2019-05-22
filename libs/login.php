@@ -11,6 +11,8 @@
  * -El usuario no esta inactivo
  * -El usuario no esta bloqueado por numero de intentos
  * -La contraseña coincide con el nombre de usuario
+ * Y por ultimo : los echo json_encode se utilizan para mandar la respuesta al ajax sobre el tipo
+ * y el usuario que esta activo en la sesion
  */
 session_start();
 //Se realiza la conexión 
