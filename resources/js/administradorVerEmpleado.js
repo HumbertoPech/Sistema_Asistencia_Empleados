@@ -162,14 +162,22 @@ function actualizarHorarioEmpleado(){
         alert("Operación cancelada");
         return;
     }
-    dias_de_la_semana = ["Lunes", "Martes","Miercoles","Jueves","Viernes"];
+    let dias_de_la_semana = ["Lunes", "Martes","Miercoles","Jueves","Viernes"];
     const DIAS_LABORALES = 5;
+    //let date = new Time('06:07:00');
+    //console.log("HORAS: " + date.getHours());
     for(let i = 0; i < DIAS_LABORALES; i++){
         let formData = new FormData();
         formData.append("operacion","actualizarHorarioEmpleado");
         formData.append("id_usuario",document.getElementById("id_usuario").value);
         formData.append("dia", dias_de_la_semana[i]);
         formData.append("hora_entrada",document.getElementById("hora_entrada"+i).value);
+        
+        let hora_entrada = document.getElementById("hora_entrada"+i).value;
+        let hora_salida = document.getElementById("hora_salida"+i).value;
+        let dia = dias_de_la_semana[i];
+        let diferencia = hora_salida - hora_entrada;
+        console.log("Dia: " + dia + " hora entrada = " + hora_entrada + " hora_salida= " + hora_salida + " diferencia = " + diferencia);
         formData.append("hora_salida",document.getElementById("hora_salida"+i).value);
         let xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function(){
