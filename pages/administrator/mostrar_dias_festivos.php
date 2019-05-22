@@ -5,7 +5,17 @@
 table, th, td {
     border: 1px solid black;
 }
+
 </style>
+<?php include("../../resources/html/header_admin_empleados.html");
+?>
+<nav class="navbar navbar-dark bg-dark"> 
+    <div class="container">
+        <a href=""  class="navbar-brand">Administración de días festivos</a>
+    </div>
+</nav>
+
+</nav>
 </head>
 <body>
     <?php
@@ -98,4 +108,6 @@ function agregarNuevoDiaFestivo($dateSelected){
         echo "</script>";   
     }
 }
+require("../../resources/html/footer_admin_empleados.html");
+
 ?>

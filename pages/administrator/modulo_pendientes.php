@@ -5,7 +5,6 @@
         <a href=""  class="navbar-brand">Solución de Pendientes de Empleados</a>
     </div>
 </nav>
-<p id="j">hola</p>
 <body onload="mostrarPendientes();">
     <div class="container p-4">
         <div class="buscador-padre">
