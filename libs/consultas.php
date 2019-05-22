@@ -1,6 +1,6 @@
 <?php
-
 function consultar($query){
+
     //require_once('../core/conexion.php'); 
     require_once($_SERVER['DOCUMENT_ROOT'].'/Sistema_Asistencia_Empleados/core/conexion.php');
     $conector = new Conexion();
@@ -38,4 +38,14 @@ function actualizar($query){
     return $resultado; 
 }
 
+function insertar($query){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/Sistema_Asistencia_Empleados/core/conexion.php');
+    $conector = new Conexion();
+      $conexion= $conector ->get_conexion(); 
+     if($conexion){
+         $resultado= $conexion->query($query);
+          return $resultado;
+     }
+     $conector->close_conexion();
+}
 ?>

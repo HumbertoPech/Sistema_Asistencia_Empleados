@@ -3,17 +3,17 @@ session_start();
 require '../core/conexion.php';
 $conector = new Conexion();
 $mysqli= $conector ->get_conexion();
-sleep(2);
+sleep(1);
 $user=$_POST['user'];
 $password=$_POST['pass'];
 $usuarios= $mysqli->query("SELECT id, id_estado, usuario, contrasena, fecha_inicio FROM empleados
 WHERE usuario= '".$user."' ");
 
-if($usuarios->num_rows ==1){
+if($usuarios->num_rows == 1){
     $datos=$usuarios->fetch_assoc(); 
     $dia_hoy = new DateTime("now");
     $dia_inicio = new DateTime($datos['fecha_inicio']);
-    if($dia_inicio>$dia_hoy){
+    if($dia_inicio<$dia_hoy){
       if($datos['id_estado']!=2){
         $data= $mysqli->query("SELECT numero_intentos FROM empleado_intentos
         WHERE id_empleado= '".$datos['id']."' ");
