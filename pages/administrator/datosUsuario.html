@@ -3,43 +3,109 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="../../resources/css/login.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <section id="form">
     <div class="container">
-            <div class="card gedf-card">
-                <div class="card-header">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="ml-2">
-                          <div class="h5 m-0">Datos del empleado</div>   
-                      </div>
-                    </div>
-                  </div>
+      <div class="card gedf-card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="ml-2">
+                    <div class="h5 m-0">Datos del empleado</div>   
                 </div>
-                <div class="card-body">
-                  <a class="card-link">
-                  <h2 class="card-title">Usuario</h2>
-                  </a>
-                  <h6 id="usuario" class="card-text"></h6>       
-                  <a class="card-link">
-                  <h2 class="card-title">Contraseña</h2>
-                  </a>
-                  <h6 id="contrasena" class="card-text"></h6>      
-                </div>
-                        
+              </div>
             </div>
-            <a href="../../pages/administrator/indexAdmin.html"><button type="button" action="" class="btn btn-secondary">Regresar</button></a>
-            
+          </div>
+          <div class="card-body">
+            <a class="card-link">
+            <h2 class="card-title">Usuario</h2>
+            </a>
+            <h6 id="usuario" class="card-text"></h6>       
+            <a class="card-link">
+            <h2 class="card-title">Contraseña</h2>
+            </a>
+            <h6 id="contrasena" class="card-text"></h6> 
+            <a class="card-link">
+            <h2 class="card-title">Nombres</h2>
+            </a>
+            <h6 id="nombres" class="card-text"></h6>       
+            <a class="card-link">
+            <h2 class="card-title">Apellidos</h2>
+            </a>
+            <h6 id="apellidos" class="card-text"></h6> 
+            <a class="card-link">
+            <h2 class="card-title">Fecha de nacimiento</h2>
+            </a>
+            <h6 id="fechanac" class="card-text"></h6>       
+            <a class="card-link">
+            <h2 class="card-title">Dirección</h2>
+            </a>
+            <h6 id="direccion" class="card-text"></h6> 
+            <a class="card-link">
+            <h2 class="card-title">Sueldo</h2>
+            </a>
+            <h6 id="sueldo" class="card-text">$</h6>       
+            <a class="card-link">
+            <h2 class="card-title">Sexo</h2>
+            </a>
+            <h6 id="sexo" class="card-text"></h6>      
+            <a class="card-link">
+            <h2 class="card-title">Estado Civil</h2>
+            </a>
+            <h6 id="estadocivil" class="card-text"></h6>       
+            <a class="card-link">
+            <h2 class="card-title">CURP</h2>
+            </a>
+            <h6 id="curp" class="card-text"></h6> 
+            <table id="horarios" class="table table-striped custab">
+              <tr>
+                <th>Dia</th>
+                <th>Hora de entrada</th>
+                <th>Hora de salida</th>
+              </tr>
+            </table>
+          </div>            
+      </div>
+      <a href="../../pages/administrator/indexAdmin.html"><button type="button" action="" class="btn btn-secondary">Regresar</button></a>
     </div>
   </section>
 <script src="../../resources/js/jquery-3.4.1.min.js"></script>
 <script src="../../resources/js/registro.js"></script>
 <script>
+var datos=JSON.parse(localStorage.getItem('datos'));
+
 document.getElementById('usuario').innerHTML=localStorage.getItem('usuario');
 document.getElementById('contrasena').innerHTML=localStorage.getItem('password');
+document.getElementById('nombres').innerHTML=datos['nombre'];
+document.getElementById('apellidos').innerHTML=datos['apellidos'];
+document.getElementById('fechanac').innerHTML=datos['fechanac'];
+document.getElementById('direccion').innerHTML=datos['direccion'];
+document.getElementById('sueldo').innerHTML=datos['sueldo'];
+document.getElementById('sexo').innerHTML=datos['sexo'];
+document.getElementById('estadocivil').innerHTML=datos['estadocivil'];
+document.getElementById('curp').innerHTML=datos['curp'];
+agregarDatos('Lunes',datos['horarioentradalunes'],datos['horariosalidalunes']);
+agregarDatos('Martes',datos['horarioentradamartes'],datos['horariosalidamartes']);
+agregarDatos('Miercoles',datos['horarioentradamiercoles'],datos['horariosalidamiercoles']);
+agregarDatos('Jueves',datos['horarioentradajueves'],datos['horariosalidajueves']);
+agregarDatos('Viernes',datos['horarioentradaviernes'],datos['horariosalidaviernes']);
+
+
+
+function agregarDatos(dia,horaentrada,horasalida){
+  var table = document.getElementById("horarios");
+  var tr = document.createElement('tr');
+  var ta = tr.appendChild(document.createElement('td'));
+  var td = tr.appendChild(document.createElement('td'));
+  var tf = tr.appendChild(document.createElement('td'));
+  ta.innerHTML=dia;
+  td.innerHTML = horaentrada;
+  tf.innerHTML=horasalida;
+  table.appendChild(tr); 
+}
 </script>
 </body>
 </html> 
