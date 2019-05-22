@@ -3,7 +3,7 @@ require '../core/conexion.php';
 //session_start();
 $con = new Conexion();
 $conexion = $con->get_conexion();  
-$query = "SELECT td.id AS id_td, td.hora_entrada, td.en_nomina, td.hora_salida, td.fecha, td.horas_trabajadas, emp.id as id_emp, emp.nombres, emp.apellidos from trabajo_diario td inner join empleados emp on emp.id = td.id_empleado where td.horas_trabajadas is null";
+$query = "SELECT td.id AS id_td, td.hora_entrada, td.en_nomina, td.hora_salida, td.fecha, td.horas_trabajadas, emp.id as id_emp, emp.nombres, emp.apellidos from trabajo_diario td inner join empleados emp on emp.id = td.id_empleado where td.horas_trabajadas is null and td.fecha < NOW()";
 $tmp = "<table class='table table-bordered'>
             <tr>
             <th>Nombre de Empleado</th>
