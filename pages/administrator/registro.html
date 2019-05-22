@@ -7,11 +7,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+  <div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+      <div class="d-flex align-items-center col-2">
+          <a href="indexAdmin.html"><button type="button" class="btn btn-primary">Regresar</button></a>
+      </div>
+      <div class="d-flex align-items-center col-10">
+          <h1 align="center">Registro de empleados </h1>
+      </div>
+  </div>
   <section id="form">
     <div class="container pt-5 pb-5">
       <div class="row">
         <div class="col-md-12 text-center">
-          <h3 class="text-uppercase">Registro de empleados</h3>
           <p>Ingresa los datos del empleado</p>
             <div class="row">
               <div class="col-md-12">
@@ -61,8 +68,158 @@
                         <h5 class="text-left">CURP</h5>
                         <input name="curp" type="name" class="form-control" id="inputDado" placeholder="CURP" autocomplete="off">
                     </div>
-                    <input type="submit" value="Registrar" class="btn btn-primary mt-5 mx-auto btn-sign">
-                  </div>  
+                    <div class="form-group col-md-12">
+                      <h3 class="text-left">Horarios</h3>
+                    </div>
+                    <div class="form-group col-md-12">
+                       <h5 class="text-left">Lunes</h5>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de entrada</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-entrada-lunes" id="horas-entrada-lunes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-entrada-lunes" id="minutos-entrada-lunes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de salida</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-salida-lunes" id="horas-salida-lunes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-salida-lunes" id="minutos-salida-lunes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                       <h5 class="text-left">Martes</h5>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de entrada</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-entrada-martes" id="horas-entrada-martes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-entrada-martes" id="minutos-entrada-martes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de salida</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-salida-martes" id="horas-salida-martes" class="form-control pr-5">
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-salida-martes"id="minutos-salida-martes" class="form-control pr-5" >
+                          <option selected="true" disabled="disabled"></option></div>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                       <h5 class="text-left">Miercoles</h5>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de entrada</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-entrada-miercoles" id="horas-entrada-miercoles" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-entrada-miercoles" id="minutos-entrada-miercoles" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de salida</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-salida-miercoles" id="horas-salida-miercoles" class="form-control pr-5"  >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-salida-miercoles" id="minutos-salida-miercoles" class="form-control pr-5"  >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                       <h5 class="text-left">Jueves</h5>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de entrada</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-entrada-jueves" id="horas-entrada-jueves" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-entrada-jueves"id="minutos-entrada-jueves" class="form-control pr-5"  >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de salida</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-salida-jueves" id="horas-salida-jueves" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-salida-jueves" id="minutos-salida-jueves" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                       <h5 class="text-left">Viernes</h5>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de entrada</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-entrada-viernes" id="horas-entrada-viernes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-entrada-viernes" id="minutos-entrada-viernes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h5 class="text-left">Hora de salida</h5>
+                     </div>
+                    <div class="form-group pr-2">
+                        <select name="horas-salida-viernes" id="horas-salida-viernes" class="form-control pr-5"  >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    <div class="form-group pr-2">
+                        <select name="minutos-salida-viernes" id="minutos-salida-viernes" class="form-control pr-5" >
+                            <option selected="true" disabled="disabled"></option>
+                        </select>
+                    </div>
+                    
+                    
+                  </div>   
+                  <input type="submit" value="Registrar" class="btn btn-primary mt-5 mx-auto btn-sign">
                 </form>  
               </div>
             </div>
@@ -72,5 +229,7 @@
   </section>
 <script src="../../resources/js/jquery-3.4.1.min.js"></script>
 <script src="../../resources/js/registro.js"></script>
+<script src="../../resources/js/selectOpcionesHorario.js"></script>
+
 </body>
 </html> 
