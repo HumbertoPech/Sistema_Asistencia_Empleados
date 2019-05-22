@@ -30,7 +30,7 @@ function cambiarContrasenia(){
 				
 	 	$newPassword= $_POST['newPassword'];       
 	 	//UPDATE `empleados` SET `contrasena`= '123456' WHERE usuario= 'ua1998';
-	 	$query = "UPDATE `empleados` SET `contrasena`= ' ".$newPassword."' WHERE `id`= '". $id_empleado . "'";
+	 	$query = "UPDATE `empleados` SET `contrasena`= '".$newPassword."' WHERE `id`= '". $id_empleado . "'";
 	 	$actualizacionRealizada = actualizar($query);
 	 	if( $actualizacionRealizada){
 	 		echo "Contraseña cambiada";

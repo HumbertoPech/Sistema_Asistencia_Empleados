@@ -3,13 +3,13 @@ session_start();
 require '../core/conexion.php';
 $conector = new Conexion();
 $mysqli= $conector ->get_conexion();
-sleep(2);
+sleep(1);
 $user=$_POST['user'];
 $password=$_POST['pass'];
-$usuarios= $mysqli->query("SELECT id, id_estado, usuario, contrasena FROM empleados
-WHERE usuario= '".$user."' ");
+$query = "SELECT id, id_estado, usuario, contrasena FROM empleados WHERE usuario ='".$user."' ";
+$usuarios = $mysqli->query($query);
 
-if($usuarios->num_rows ==1){
+if($usuarios->num_rows == 1){
     $datos=$usuarios->fetch_assoc(); 
     if($datos['id_estado']!=2){
       $data= $mysqli->query("SELECT numero_intentos FROM empleado_intentos

@@ -1,5 +1,4 @@
 <?php
-include_once('../core/conexion.php');
 function consultar($query){
 
     //require_once('../core/conexion.php'); 
