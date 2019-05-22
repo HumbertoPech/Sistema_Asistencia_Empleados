@@ -49,12 +49,14 @@ $array_datos=array(
 );
 $usuarios= $mysqli->query("SELECT nombres, apellidos FROM empleados
 WHERE curp= '".$curp."' AND usuario= '".$usuario."' ");
-
 if($usuarios->num_rows ==0){
     $sqlregistro="INSERT INTO empleados (nombres, apellidos, usuario,contrasena,sueldo_base,id_estado,direccion,fecha_nacimiento,sexo,estado_civil,curp) VALUES ('$nombres', '$apellidos', '$usuario', '$contrasena','$sueldo','$id_estado','$direccion','$fechanac','$sexo','$estadocivil','$curp')";
+    
     $mysqli->query($sqlregistro);
+
     $usuarios= $mysqli->query("SELECT id FROM empleados
     WHERE curp= '".$curp."' ");
+
     $datos=$usuarios->fetch_assoc();
     $id_registro=$datos['id'];
     $sqlsesion="INSERT INTO empleado_intentos (id_empleado,estado,numero_intentos) VALUES ('$id_registro',1,0)";
