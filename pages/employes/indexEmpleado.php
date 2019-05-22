@@ -14,24 +14,16 @@
 <body>
   <div class="container-fluid">
     <div class="box-signout">
-      <a href="login.html"><button class="btn-signout"><i class="fa fa-sign-out fa-2x"></i><br>Cerrar Sesión</button></a> 
+      <a href="loginEmpleado.html"><button class=" btn-dark btn-signout"><i class="fa fa-sign-out fa-2x"></i><br>Cerrar Sesión</button></a> 
     </div>
      
-    <div class="row">   
-      <div class="col-md-2"></div>   
-      <div class="col-md-8 buttons-box">
-        <div class="alert alert-success col-8" id="alerta" style="display:none" role="alert">
-          <h4 class="alert-heading">Well done!</h4>
-          <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-          <hr>
-          <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-        </div> 
+    <div class="row justify-content-center">   
+      <div class="col-md-8 buttons-box justify-content-center">
         <button class="btn-icon" id="registrarEntrada" style="display:none;"><i class="fa fa-calendar-check-o fa-5x"></i><br> Registrar Entrada</button>
-
         <button class="btn-icon" id="registrarSalida"  style="display:none;"><i class="fa fa-calendar-times-o fa-5x"></i><br> Registrar Salida</button>
         <button class="btn-icon" onclick= "location.href='cambioContraseña.php'"> <i class="fa fa-key fa-5x"></i><br> Cambiar Contraseña</button>
       </div> 
-      <div class="col-md-2"></div>    
+          
     </div>
   </div>
 </body>
