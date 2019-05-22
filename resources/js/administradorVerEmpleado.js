@@ -200,3 +200,87 @@ function confirmacionUsuario(mensaje){
     }
     return true;
 }
+
+function checarHora(tipo,contador,dia){
+    let stringHorario = document.getElementById(tipo+contador).value;
+    let splitHorario = stringHorario.split(":");
+        
+    let hora = parseInt(splitHorario[0]);
+    let minutos = parseInt(splitHorario[1]);
+    if(tipo == "hora_entrada"){
+        
+        if(hora<8){
+            //Error
+            document.getElementById("invalid-feedback-"+dia).style.display="inline";
+            document.getElementById("botonGuardarHorario").disabled=true;
+            return;
+        }else{
+            if(hora <= 12){
+                let horaSalida = hora+8; //tienen que ser 8 horas laborales!!!
+                let strMinutosSalida;
+                if(minutos < 10){
+                    strMinutosSalida = "0"+minutos;
+                }else{
+                    strMinutosSalida = minutos;
+                }
+                let strHoraSalida = horaSalida+":"+strMinutosSalida;
+                document.getElementById("hora_salida"+contador).value=strHoraSalida;
+            }else{
+                //Error
+                document.getElementById("invalid-feedback-"+dia).style.display="inline";
+                document.getElementById("botonGuardarHorario").disabled=true;
+                return;
+            }
+        } 
+    }else if(tipo == "hora_salida"){
+        if(hora > 20){
+            //error
+            document.getElementById("invalid-feedback-"+dia).style.display="inline";
+            document.getElementById("botonGuardarHorario").disabled=true;
+            return;
+        }else{
+            if(hora >= 16){
+                let horaEntrada = hora - 8;
+                let strMinutosEntrada;
+                if(minutos>0){
+                    if(hora == 20){
+                        //Error Ya es tarde
+                        document.getElementById("invalid-feedback-"+dia).style.display="inline";
+                        document.getElementById("botonGuardarHorario").disabled=true;;
+                        strMinutosEntrada = "00";
+                        return;
+                    }else{
+                        if(minutos < 10){
+                            strMinutosEntrada = "0"+minutos;
+                        }else{
+                            strMinutosEntrada = minutos;
+                        }
+                    }
+                }else{
+                    strMinutosEntrada = "00";
+                }
+
+                if(horaEntrada<10){
+                    stringHoraEntraFinal = "0"+horaEntrada;
+                    console.log("Hora ahora" + stringHoraEntraFinal);
+                }else{
+                    stringHoraEntraFinal = horaEntrada;
+                }
+                
+                let strHoraEntrada = stringHoraEntraFinal+":"+strMinutosEntrada;
+                document.getElementById("hora_entrada"+contador).value=strHoraEntrada;
+            }else{
+                //error
+                document.getElementById("invalid-feedback-"+dia).style.display="inline";
+                document.getElementById("botonGuardarHorario").disabled=true;
+                return
+            }
+        }
+    }
+    document.getElementById("invalid-feedback-"+dia).style.display="none";
+    document.getElementById("botonGuardarHorario").disabled = false;
+}
+
+function errorHorario(){
+
+}

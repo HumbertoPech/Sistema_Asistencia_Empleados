@@ -5,8 +5,9 @@
 
 require_once("../../config/config.php");
 require_once(LIBS_PATH."consultas.php");
-$data = consultar("SELECT * FROM empleados where id = 1");
-$xs = consultar("SELECT * FROM horarios where id_empleado = 1");
+$id_empleado = $_GET['id_empleado'];
+$data = consultar("SELECT * FROM empleados where id = ".$id_empleado);
+//$xs = consultar("SELECT * FROM horarios where id_empleado = 1");
 //var_dump($data);
 //var_dump($xs);
 ?>
@@ -137,18 +138,18 @@ $xs = consultar("SELECT * FROM horarios where id_empleado = 1");
                                             mostrarHorario("Hora salida","hora_salida");
                                             
                                             function mostrarHorario($tipo,$nombre_bd){
-                                                global $dias_de_la_semana, $contador;
+                                                global $dias_de_la_semana, $contador, $id_empleado;
                                                 $contador = 0;
                                                 echo "<tr><th scope='row'>$tipo</th>";   
                                                 foreach($dias_de_la_semana as $dia){
-                                                    $query = "SELECT * FROM horarios WHERE id_empleado = 1 AND dia = '$dia'";
+                                                    $query = "SELECT * FROM horarios WHERE id_empleado =".$id_empleado." AND dia = '$dia'";
                                                     $informacion_dia = consultar($query);
                                                     //$name = $nombre_bd.":".$dia;
                                                     $name = $nombre_bd.$contador;
                                                     //<div class="invalid-feedback">You must agree before submitting.</div>
-                                                    echo "<td> <input onchange=checarHora('$nombre_bd',$contador) type='time' class='form-control inputsHorarioPersonal' name='$name' id='$name' value=".$informacion_dia["$nombre_bd"].">";
+                                                    echo "<td> <input onchange=checarHora('$nombre_bd',$contador,'$dia') type='time' class='form-control inputsHorarioPersonal' name='$name' id='$name' value=".$informacion_dia["$nombre_bd"].">";
                                                     if($nombre_bd=="hora_salida"){
-                                                        echo "<div class ='invalid-feedback' id='invalid-feedback'>xdsdadadsad</div>";
+                                                        echo "<div class ='invalid-feedback' id='invalid-feedback-".$dia."'>Horario no permitido. Checarlo.</div>";
                                                     }   
                                                     echo "</td>";
                                                     $contador++;                            
@@ -202,81 +203,4 @@ $xs = consultar("SELECT * FROM horarios where id_empleado = 1");
     </body>
     <!--El código JavaScript utilizado esta en el archivo siguiente-->
     <script src="../../resources/js/administradorVerEmpleado.js"></script>
-    <script>
-        function checarHora(tipo,contador){
-            let stringHorario = document.getElementById(tipo+contador).value;
-            let splitHorario = stringHorario.split(":");
-                
-            let hora = parseInt(splitHorario[0]);
-            let minutos = parseInt(splitHorario[1]);
-            if(tipo == "hora_entrada"){
-                
-                if(hora<8){
-                    //Error
-                    document.getElementById("invalid-feedback").style.display="inline";
-                    return;
-                }else{
-                    if(hora <= 12){
-                        let horaSalida = hora+8; //tienen que ser 8 horas laborales!!!
-                        let strMinutosSalida;
-                        if(minutos < 10){
-                            strMinutosSalida = "0"+minutos;
-                        }else{
-                            strMinutosSalida = minutos;
-                        }
-                        let strHoraSalida = horaSalida+":"+strMinutosSalida;
-                        document.getElementById("hora_salida"+contador).value=strHoraSalida;
-                    }else{
-                        //error
-                    }
-                } 
-            }else if(tipo == "hora_salida"){
-                if(hora > 20){
-                    //error
-                }else{
-                    if(hora >= 16){
-                        let horaEntrada = hora - 8;
-                        let strMinutosEntrada;
-                        if(minutos>0){
-                            if(hora == 20){
-                                //Error Ya es tarde
-                                strMinutosEntrada = "00";
-                            }else{
-                                if(minutos < 10){
-                                    strMinutosEntrada = "0"+minutos;
-                                }else{
-                                    strMinutosEntrada = minutos;
-                                }
-                            }
-                        }else{
-                            strMinutosEntrada = "00";
-                        }
-
-                        if(horaEntrada<10){
-                            stringHoraEntraFinal = "0"+horaEntrada;
-                            console.log("Hora ahora" + stringHoraEntraFinal);
-                        }else{
-                            stringHoraEntraFinal = horaEntrada;
-                        }
-                        
-                        let strHoraEntrada = stringHoraEntraFinal+":"+strMinutosEntrada;
-                        document.getElementById("hora_entrada"+contador).value=strHoraEntrada;
-                    }else{
-                        //error!!!
-                    }
-                }
-            }
-        }
-        
- /*       function ponerMinMaxHorarios(){
-            let dias = 5;
-            let idInputHorarioSalida = "horario_salida";
-            let idInputHorarioEntrada = "horarios_entrada";
-            let horario_
-
-            for(let i = 0; i < dias; i++){
-
-            }
-        }*/
-    </script>
 </html>
