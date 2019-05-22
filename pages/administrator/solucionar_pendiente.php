@@ -8,35 +8,78 @@ if(isset($_GET['id_trabajo_diario'])){
     //$conexion = $con->close_conexion();
 }
 
-if(isset($_POST['id'])){
-    $id = $_POST['id'];
-}
 if(isset($_POST["dato_final"])){
     
     $dato_final = $_POST['dato_final'];
     $tipo = $_POST['tipo'];
     $descripcion = $_POST['descripcion'];
     $id = $_POST['id'];
-    var_dump($descripcion);
-
-    $query = "INSERT into solucion_pendientes (id_trabajo_diario, dato_original, dato_final, tipo, descripcion) values ($id, null,null, '$tipo', '$descripcion')";
-    $query = "INSERT into 'solucion_pendientes' ('id_trabajo_diario', 'dato_original', 'dato_final', 'tipo', 'descripcion') values (3, '05:00:00','22:00:00', 'E', 'mi mama')";
-
-    $query = "INSERT INTO `solucion_pendientes` (`id`, `id_trabajo_diario`, `dato_original`, `dato_final`, `tipo`, `descripcion`) VALUES (NULL, '2', '09:00:00', '19:00:00', 'E', 'SDFSDF')";
-    //$query = "INSERT INTO 'trabajo_diario' ('id', 'id_empleado', 'en_nomina', 'hora_entrada', 'hora_salida', 'fecha', 'horas_trabajadas') VALUES (NULL, '1', '', '05:00:00', '22:00:00', '2019-05-20', NULL)";
+    $query = "INSERT into solucion_pendientes (id_trabajo_diario, dato_original, dato_final, tipo, descripcion) values ($id, '$dato_final', '$dato_final', '$tipo', '$descripcion')";
     if($conexion){
         $resultado = $conexion->query($query);
-        var_dump($resultado);
-        $query2 = "UPDATE trabajo_diario SET hora_salida ='$dato_final' where id = $id  ";
+        $query2 = "SELECT * from  trabajo_diario where id = $id";
         $resultado2 = $conexion->query($query2);
+
+        while($row = $resultado2->fetch_array()){
+            $query3="";
+            if(!isset($row['hora_entrada'])){
+                
+                $query3 = "UPDATE trabajo_diario SET hora_entrada ='$dato_final' where id = $id";
+            }else if(!isset($row['hora_salida'])){
+                $query3 = "UPDATE trabajo_diario SET hora_salida ='$dato_final' where id = $id";
+            }
+            $resultado3 = $conexion->query($query3);
+            calcularHorasDiarias($id);
+            
+
+        }
+        header("Location: modulo_pendientes.php");
+
     }
 }
 
+function calcularHorasDiarias($id){
+	global $conexion;
+	$query= "SELECT * FROM trabajo_diario WHERE id = '$id'";
+    $resultado = $conexion->query($query);
+    while($registro = $resultado->fetch_array()){
+        if($resultado){
+            $registroEntrada= new DateTime($registro['hora_entrada']);
+            $registroSalida = new DateTime($registro['hora_salida']);
+    
+            if($registroEntrada!= NULL && $registroSalida != NULL ){
+                
+                    $intervaloTrabajado= $registroEntrada->diff($registroSalida);
+                    $horasTrabajadas = $intervaloTrabajado->format("%H.%i");//08.30		
+                    //Descontar los minutos que se pasó del horario de entrada			
+                    $intervaloTrabajado= $registroEntrada->diff($registroSalida);//Calcular cuantas horas trabajó sin el retardo 
+                    //Unidades de horas trabajadas= horas. Los minutos se transforman en unidades de horas.
+                    $horasTrabajadas = (($intervaloTrabajado->h)-1) + (($intervaloTrabajado->i)/60);//Descontarle 1 hora al total de horas trabajadas.
 
-?>
-<?php include("../../resources/html/header_admin_empleados.html");?>
+                    
+                    $query= "UPDATE `trabajo_diario` SET `horas_trabajadas`= ' ".$horasTrabajadas."' WHERE `id`= '".$id."'";
+                    $resultado = $conexion->query($query);
+                    if($resultado){
+                        echo "Exito";
+                        return true;
+                    }
+                    return false;
+    
+            }else{
+            return false;
+            }
+        }else{
+    
+            echo "Empleado o fecha no existente";
+            return false;
+        }
+    }
+
+
+}
+include("../../resources/html/header_admin_empleados.html");?>
 <script type="text/javascript" src="../../resources/js/funciones_solucionar_pendientes.js"></script>
-<h1 hidden id="text"><?php echo $id?></h1>
+<h1 hidden id="text"><?php echo $id ?></h1>
 
 <div class="container p-4">
     <div class="row">
@@ -44,7 +87,7 @@ if(isset($_POST["dato_final"])){
             <div class="card card-body">
                 <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
                     <p hidden id="hora_ini">Dato original:</p>
-                    <input type="hidden" id="id" name="id" value=<?php$id?>>
+                    <input type="hidden" id="id" name="id" value=<?php echo $id?>>
                     <p>Dato final: <input type="time" name = "dato_final" id="dato_final" min="08:00" max="20:00" step="600" required></p>
                     <label>Tipo de pendiente:</label>
                     <SELECT NAME="tipo" name="tipo" id="tipo" SIZE=1> 
