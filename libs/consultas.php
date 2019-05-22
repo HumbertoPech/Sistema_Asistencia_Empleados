@@ -39,6 +39,7 @@ function actualizar($query){
 }
 
 function insertar($query){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/Sistema_Asistencia_Empleados/core/conexion.php');
     $conector = new Conexion();
       $conexion= $conector ->get_conexion(); 
      if($conexion){

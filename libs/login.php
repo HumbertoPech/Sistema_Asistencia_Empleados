@@ -13,7 +13,7 @@ if($usuarios->num_rows == 1){
     $datos=$usuarios->fetch_assoc(); 
     $dia_hoy = new DateTime("now");
     $dia_inicio = new DateTime($datos['fecha_inicio']);
-    if($dia_inicio>$dia_hoy){
+    if($dia_inicio<$dia_hoy){
       if($datos['id_estado']!=2){
         $data= $mysqli->query("SELECT numero_intentos FROM empleado_intentos
         WHERE id_empleado= '".$datos['id']."' ");
