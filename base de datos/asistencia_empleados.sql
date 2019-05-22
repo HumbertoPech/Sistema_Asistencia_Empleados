@@ -96,8 +96,8 @@ CREATE TABLE `empleados` (
   `id` int(11) NOT NULL,
   `nombres` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
-  `contrasena` varchar(10) NOT NULL,
+  `usuario` longtext NOT NULL,
+  `contrasena` longtext NOT NULL,
   `sueldo_base` double NOT NULL,
   `id_estado` int(11) NOT NULL,
   `direccion` varchar(45) NOT NULL,
@@ -236,7 +236,7 @@ CREATE TABLE `trabajo_diario` (
   `hora_entrada` time DEFAULT NULL,
   `hora_salida` time DEFAULT NULL,
   `fecha` date NOT NULL,
-  `horas_trabajadas` int(11) DEFAULT NULL
+  `horas_trabajadas` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
