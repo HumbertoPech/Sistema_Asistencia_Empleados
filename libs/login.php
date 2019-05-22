@@ -1,4 +1,16 @@
 <?php
+/**
+ * @author Gerardo Hau 
+ * ,
+ * Se realiza mediante un metodo POST, con Ajax, la recepción de datos
+ * que permite al empleado ingresar al sistema
+ * Se realizan las siguientes comprobaciones:
+ * -El usuario esta registrado en el sistema
+ * -El usuario esta en fecha para poder trabajar
+ * -El usuario no esta inactivo
+ * -El usuario no esta bloqueado por numero de intentos
+ * -La contraseña coincide con el nombre de usuario
+ */
 session_start();
 //Se realiza la conexión 
 require '../core/conexion.php';
@@ -13,7 +25,7 @@ $password=$_POST['pass'];
 $usuarios= $mysqli->query("SELECT id, id_estado, usuario, contrasena, fecha_inicio FROM empleados
 WHERE usuario= '".$user."' ");
 
-//Si existe el usuario, el query debe tener mas de 1 elemento
+//Si existe el usuario, el query debe tener 1 elemento
 if($usuarios->num_rows == 1){
     $datos=$usuarios->fetch_assoc(); 
     //Se verifica si el empleado esta en su fecha de inicio de trabajo
@@ -21,7 +33,8 @@ if($usuarios->num_rows == 1){
     $dia_inicio = new DateTime($datos['fecha_inicio']);
     if($dia_inicio<$dia_hoy){
       //Verifica si el empleado esta activo
-      if($datos['id_estado']!=2){
+      $estado_inactivo=2;
+      if($datos['id_estado']!=$estado_inactivo){
         $data= $mysqli->query("SELECT numero_intentos FROM empleado_intentos
         WHERE id_empleado= '".$datos['id']."' ");
         $numero_intentos=$data->fetch_assoc(); 
