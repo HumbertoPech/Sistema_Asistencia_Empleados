@@ -1,15 +1,13 @@
 <?php
-//require_once("../../config/config.php");
-//require_once ( $_SERVER['DOCUMENT_ROOT'].'/Sistema_Asistencia_Empleados/libs/consultas.php');
-//require_once("../../libs/consultas.php");
+/**
+ * @author Humberto Pech
+ */
 
 require_once("../../config/config.php");
 require_once(LIBS_PATH."consultas.php");
 $id_empleado = $_GET['id_empleado'];
 $data = consultar("SELECT * FROM empleados where id = ".$id_empleado);
-//$xs = consultar("SELECT * FROM horarios where id_empleado = 1");
-//var_dump($data);
-//var_dump($xs);
+
 ?>
 
 <!DOCTYPE html>
