@@ -15,7 +15,5 @@ function mostrarPendientes(){
     });
 }
 
-function solucionarPendiente(){
-}
 
 
