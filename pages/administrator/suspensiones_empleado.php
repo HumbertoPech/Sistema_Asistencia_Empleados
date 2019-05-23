@@ -21,7 +21,7 @@ if(isset($_GET['id_usuario'])){
 
 
 if(isset($_GET['update'])){
-    //echo "paso";
+    echo "paso";
     $id=$_GET['id_usuario'];
     $fecha_inicio = new DateTime($_GET['fecha_inicio']);
     $fecha_inicio = $fecha_inicio->format('Y-m-d');
@@ -139,7 +139,7 @@ if (isset($_POST['delete'])) {
 <script>
 function enviar(){
     console.log(document.getElementById('fecha_inicio').value);
-    if(document.getElementById('fecha_inicio').value=="" || document.getElementById('fecha_termino').value=="")){
+    if(document.getElementById('fecha_inicio').value=="" || document.getElementById('fecha_termino').value==""){
         alert("Seleccione fechas");
         return;
     }
