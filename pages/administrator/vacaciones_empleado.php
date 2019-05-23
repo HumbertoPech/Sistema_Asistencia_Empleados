@@ -53,7 +53,15 @@ if (isset($_POST['delete'])) {
 
 
 <?php include("../../resources/html/header_admin_empleados.html");?>
-<div class="container p-4">
+<div class="container-fluid">
+<div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+                <div class="d-flex align-items-center col-2">
+                    <a href="administrar_empleados.php" ><button type="button" class="btn btn-primary">Regresar</button></a>
+                </div>
+                <div class="d-flex align-items-center col-10">
+                    <h1 align="center">Vacaciones </h1>
+                </div>
+            </div>
     <h2><?php echo $nombre; ?></h2>
     <div class="row">
         <div class="col-md-6 mx-auto">

@@ -81,7 +81,15 @@ include("../../resources/html/header_admin_empleados.html");?>
 <script type="text/javascript" src="../../resources/js/funciones_solucionar_pendientes.js"></script>
 <h1 hidden id="text"><?php echo $id ?></h1>
 
-<div class="container p-4">
+<div class="container-fluid">
+<div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+                <div class="d-flex align-items-center col-2">
+                    <a href="modulo_pendientes.php" ><button type="button" class="btn btn-primary">Regresar</button></a>
+                </div>
+                <div class="d-flex align-items-center col-10">
+                    <h1 align="center">Solucionar pendiente </h1>
+                </div>
+            </div>
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body">

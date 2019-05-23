@@ -9,11 +9,16 @@ table, th, td {
 </style>
 <?php include("../../resources/html/header_admin_empleados.html");
 ?>
-<nav class="navbar navbar-dark bg-dark"> 
-    <div class="container">
-        <a href=""  class="navbar-brand">Administración de días festivos</a>
-    </div>
-</nav>
+<div class="container-fluid">
+
+<div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+                <div class="d-flex align-items-center col-2">
+                    <a href="indexAdmin.html" ><button type="button" class="btn btn-primary">Regresar</button></a>
+                </div>
+                <div class="d-flex align-items-center col-10">
+                    <h1 align="center">Administración de Días Festivos </h1>
+                </div>
+            </div>
 
 </nav>
 </head>
@@ -50,6 +55,7 @@ table, th, td {
     </label>
     <input type="submit" name="submit" value="Aceptar"><br>
     </form>
+</div>
 </body>
 </html>
 <?php 

@@ -5,7 +5,7 @@
 
 require_once("../../config/config.php");
 require_once(LIBS_PATH."consultas.php");
-$id_empleado = $_GET['id_empleado'];
+$id_empleado = $_GET['id_usuario'];
 $data = consultar("SELECT * FROM empleados where id = ".$id_empleado);
 
 ?>
@@ -24,7 +24,7 @@ $data = consultar("SELECT * FROM empleados where id = ".$id_empleado);
         <div class="container-fluid ">
             <div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
                 <div class="d-flex align-items-center col-2">
-                    <button type="button" class="btn btn-primary">Regresar</button>
+                    <a href="administrar_empleados.php" ><button type="button" class="btn btn-primary">Regresar</button></a>
                 </div>
                 <div class="d-flex align-items-center col-10">
                     <h1 align="center">Ver empleado </h1>

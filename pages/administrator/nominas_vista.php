@@ -13,11 +13,15 @@
 </head>
 
 <body onload="busqueda();">
-<nav class="navbar navbar-dark bg-dark"> 
-    <div class="container">
-        <a href=""  class="navbar-brand">Administración de Empleados</a>
-    </div>
-</nav>
+<div class="container-fluid">
+<div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+                <div class="d-flex align-items-center col-2">
+                    <a href="indexAdmin.html" ><button type="button" class="btn btn-primary">Regresar</button></a>
+                </div>
+                <div class="d-flex align-items-center col-10">
+                    <h1 align="center">N&oacute;minas </h1>
+                </div>
+            </div>
     <div class="titulo">
         <h1>Sección de Nóminas</h1>
     </div>
@@ -88,7 +92,7 @@
             </tbody>
         </table>
     </div>-->
-    
+</div>
 </body>
 <?php require("../../resources/html/footer_admin_empleados.html");?>
 

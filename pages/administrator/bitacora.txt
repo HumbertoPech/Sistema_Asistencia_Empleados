@@ -1,2 +1,0 @@
-
-QUERY=>INSERT into vacaciones_empleados(id_empleado, fecha_inicio, fecha_termino) VALUES (1,'2019-05-25', '2019-05-09')QUERY=>INSERT into vacaciones_empleados(id_empleado, fecha_inicio, fecha_termino) VALUES (1,'2019-05-25', '2019-05-09')QUERY=>INSERT into vacaciones_empleados(id_empleado, fecha_inicio, fecha_termino) VALUES (1,'2019-05-25', '2019-05-09')QUERY=>INSERT into vacaciones_empleados(id_empleado, fecha_inicio, fecha_termino) VALUES (1,'2019-05-23', '2019-05-31')

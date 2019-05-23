@@ -2,10 +2,18 @@
 ?>
 <nav class="navbar navbar-dark bg-dark"> 
     <div class="container">
-        <a href=""  class="navbar-brand">Administración de Empleados</a>
+    <div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+                <div class="d-flex align-items-center col-2">
+                    <a href="indexAdmin.html" ><button type="button" class="btn btn-primary">Regresar</button></a>
+                </div>
+                <div class="d-flex align-items-center col-10">
+                    <h1 align="center">Administraci&oacute;n de Empleados </h1>
+                </div>
+            </div>
     </div>
 </nav>
 <body onload="busqueda();">
+<a href="registro.html" ><button type="button" class="btn btn-warning">Registrar Empleado</button></a>
     <div class="container p-4">
         <div class="buscador-padre">
             <div class="buscador-hijo">

@@ -1,12 +1,21 @@
 <?php include("../../resources/html/header_admin_empleados.html");
 ?>
-<nav class="navbar navbar-dark bg-dark"> 
+
+<body onload="mostrarPendientes();">
+    <div class="container-fluid">
+    <div id ="encabezado" class="row sticky-top bg-dark text-white shadow-sm">
+                <div class="d-flex align-items-center col-2">
+                    <a href="indexAdmin.html" ><button type="button" class="btn btn-primary">Regresar</button></a>
+                </div>
+                <div class="d-flex align-items-center col-10">
+                    <h1 align="center">Pendientes </h1>
+                </div>
+            </div>
+            <nav class="navbar navbar-dark bg-dark"> 
     <div class="container">
         <a href=""  class="navbar-brand">Solución de Pendientes de Empleados</a>
     </div>
 </nav>
-<body onload="mostrarPendientes();">
-    <div class="container p-4">
         <div class="buscador-padre">
             <div class="buscador-hijo">
                 <script type="text/javascript" src="../../resources/js/funciones_solucionar_pendientes.js"></script>
