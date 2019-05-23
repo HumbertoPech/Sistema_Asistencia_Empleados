@@ -20,18 +20,18 @@ if(isset($_GET['id_usuario'])){
 }
 
 
-if(isset($_POST['update'])){
-    echo "paso";
+if(isset($_GET['update'])){
+    //echo "paso";
     $id=$_GET['id_usuario'];
-    $fecha_inicio = new DateTime($_POST['fecha_inicio']);
+    $fecha_inicio = new DateTime($_GET['fecha_inicio']);
     $fecha_inicio = $fecha_inicio->format('Y-m-d');
-    $fecha_termino = new DateTime($_POST['fecha_termino']);
+    $fecha_termino = new DateTime($_GET['fecha_termino']);
     $fecha_termino = $fecha_termino->format('Y-m-d');
 
     $query = "INSERT into suspension_empleados(id_empleado, fecha_inicio, fecha_termino) VALUES ($id,'$fecha_inicio', '$fecha_termino')";
  
     if($conexion){
-        var_dump($result);
+        //var_dump($result);
         $resultado = $conexion->query($query);
     }
 }
@@ -138,7 +138,11 @@ if (isset($_POST['delete'])) {
 </div>
 <script>
 function enviar(){
-    console.log("paso");
+    console.log(document.getElementById('fecha_inicio').value);
+    if(document.getElementById('fecha_inicio').value=="" || document.getElementById('fecha_termino').value){
+        alert("Seleccione fechas");
+        return;
+    }
     window.location.href="?id_usuario="+document.getElementById('id_user').value + "&update=true&fecha_inicio="+document.getElementById('fecha_inicio').value+"&fecha_termino="+document.getElementById('fecha_termino').value;
 }
 </script>

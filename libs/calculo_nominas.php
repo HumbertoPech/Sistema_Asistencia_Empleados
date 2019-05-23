@@ -1,7 +1,7 @@
 <?php
     date_default_timezone_set("America/Mexico_City");
     $fecha_hoy = date("d-m-Y");
-    //$fecha_hoy = date('22-04-2019'); //poner en comentarios
+    //$fecha_hoy = date('20-04-2019'); //poner en comentarios
     $fecha_inicio_semana;
     $fecha_fin_semana;
     $dias_festivos = array();

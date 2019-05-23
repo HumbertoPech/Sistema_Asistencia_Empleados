@@ -89,6 +89,11 @@ if (isset($_POST['delete'])) {
 <script>
 function enviar(){
     console.log("paso");
+    console.log(document.getElementById('fecha_inicio').value);
+    if(document.getElementById('fecha_inicio').value=="" || document.getElementById('fecha_termino').value){
+        alert("Seleccione fechas");
+        return;
+    }
     window.location.href="?id_usuario="+document.getElementById('id_user').value + "&update=true&fecha_inicio="+document.getElementById('fecha_inicio').value+"&fecha_termino="+document.getElementById('fecha_termino').value;
 }
 </script>

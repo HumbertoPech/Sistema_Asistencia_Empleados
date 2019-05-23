@@ -33,7 +33,7 @@ table, th, td {
     if($conexion){
         $resultado = $conexion->query($sql);
         if (!empty($resultado)) {
-            echo "<table><tr><th>FECHA</th><th>EDITAR</th><th>ELIMINAR</th></tr>";
+            echo "<table class='table row justify-content-center'><tr><th>FECHA</th><th>EDITAR</th><th>ELIMINAR</th></tr>";
 
             while($row = $resultado->fetch_array()){
                 $id = $row['id'];
@@ -47,14 +47,16 @@ table, th, td {
     }  
     $conexion = $con->close_conexion();  
 
-    ?> 
-    <h4>Agregar nuevo dia festivo<h4>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    ?>
+    <div class="row justify-content-center"> 
+    <h4 class="col-12" align="center">Agregar nuevo dia festivo<h4>
+    <form class="col-12" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <label>
         <input type="date" name="fecha_entrada" id="fecha_entrada" value="<?php echo date("Y-m-d");?>">
     </label>
     <input type="submit" name="submit" value="Aceptar"><br>
     </form>
+</div>
 </div>
 </body>
 </html>
