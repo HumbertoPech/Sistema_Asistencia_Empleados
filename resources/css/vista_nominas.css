@@ -1,0 +1,38 @@
+table{
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+div{
+    text-align: center;
+}
+
+th{
+    background-color: darkorange;
+}
+button{
+    background-color: #fafafa;
+    margin: 1rem;
+    padding: 1rem;
+    border: 2px solid #ccc;
+    /* IMPORTANTE */
+    text-align: center;
+    float: inherit;    
+}
+
+.buscador-padre {
+    display: flex;
+    justify-content: center;
+}
+
+.buscador-hijo{
+    background-color: #fafafa;
+    margin: .2cm;
+    padding: .2cm;
+    border: 2px solid #ccc;
+    /* IMPORTANTE */
+    text-align: center;
+    width: 50%;
+    float: inherit;
+}
