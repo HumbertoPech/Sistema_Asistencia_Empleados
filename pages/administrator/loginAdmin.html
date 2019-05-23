@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="../../resources/css/login.css">
+  
+</head>
+<body>
+<div class="container">
+  <div class="card card-container">
+    <form action = "#" class="form-signin" onsubmit=" let bol =  comprobarContrasenaAdmin(document.getElementById('inputPassword').value); if(bol){window.location.href='indexAdmin.html';return false;}">
+      <label>
+        <h2>Administrador</h2>
+      </label>
+      <span id="reauth-email" class="reauth-email"></span>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Contrase&ntilde;a" required>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" >Ingresar</button>
+    </form>             
+  </div>
+</div>
+</body>
+<script>
+  function comprobarContrasenaAdmin(contrasenaRecibida){
+    let xmlhttp = new XMLHttpRequest();
+    let formData = new FormData();
+    let esValido;
+    formData.append("operacion","comprobarContrasena");
+    formData.append("contrasenaAdmin",contrasenaRecibida);
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //Recuperar contraseña si es válido
+            let respuesta = JSON.parse(this.response);
+            esValido= respuesta['resultado'];
+            if(!esValido){
+              alert("Verifique su contraseña");
+              //return true;
+            }
+        }
+    };
+
+    xmlhttp.open("POST","../../libs/operacionesAdministrador.php",false);
+    xmlhttp.send(formData);
+    window.location.href = "indexAdmin.html";
+    return esValido;
+}
+</script>
+</html> 

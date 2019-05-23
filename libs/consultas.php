@@ -1,5 +1,4 @@
 <?php
-include_once('../core/conexion.php');
 function consultar($query){
 
     //require_once('../core/conexion.php'); 
@@ -40,6 +39,7 @@ function actualizar($query){
 }
 
 function insertar($query){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/Sistema_Asistencia_Empleados/core/conexion.php');
     $conector = new Conexion();
       $conexion= $conector ->get_conexion(); 
      if($conexion){

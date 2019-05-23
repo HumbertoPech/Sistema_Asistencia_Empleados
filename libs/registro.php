@@ -13,6 +13,7 @@ $sueldo=$_POST['sueldo'];
 $sexo=$_POST['sexo'];
 $estadocivil=$_POST['estadocivil'];
 $curp=$_POST['curp'];
+$fecha_inicio=$_POST['fechainicio'];
 $contrasena=generador_contrasena();
 $id_estado=1;
 $usuario=generador_usuario($nombres,$apellidos);
@@ -45,13 +46,15 @@ $array_datos=array(
     'horarioentradajueves' => $horario_entrada_jueves, 
     'horariosalidajueves'=>$horario_salida_jueves,
     'horarioentradaviernes'=>$horario_entrada_viernes,
-    'horariosalidaviernes'=>$horario_salida_viernes
+    'horariosalidaviernes'=>$horario_salida_viernes,
+    'fechainicio'=>$fecha_inicio
 );
 $usuarios= $mysqli->query("SELECT nombres, apellidos FROM empleados
 WHERE curp= '".$curp."' AND usuario= '".$usuario."' ");
 if($usuarios->num_rows ==0){
-    $sqlregistro="INSERT INTO empleados (nombres, apellidos, usuario,contrasena,sueldo_base,id_estado,direccion,fecha_nacimiento,sexo,estado_civil,curp) VALUES ('$nombres', '$apellidos', '$usuario', '$contrasena','$sueldo','$id_estado','$direccion','$fechanac','$sexo','$estadocivil','$curp')";
-    
+
+    $sqlregistro="INSERT INTO empleados (nombres, apellidos, usuario,contrasena,sueldo_base,id_estado,direccion,fecha_nacimiento,sexo,estado_civil,curp,fecha_inicio) VALUES ('$nombres', '$apellidos', '$usuario', '$contrasena','$sueldo','$id_estado','$direccion','$fechanac','$sexo','$estadocivil','$curp','$fecha_inicio')";
+
     $mysqli->query($sqlregistro);
 
     $usuarios= $mysqli->query("SELECT id FROM empleados

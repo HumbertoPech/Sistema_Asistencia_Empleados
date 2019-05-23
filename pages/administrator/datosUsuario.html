@@ -60,6 +60,10 @@
             <h2 class="card-title">CURP</h2>
             </a>
             <h6 id="curp" class="card-text"></h6> 
+            <a class="card-link">
+            <h2 class="card-title">Fecha de inicio</h2>
+            </a>
+            <h6 id="fechainicio" class="card-text"></h6> 
             <table id="horarios" class="table table-striped custab">
               <tr>
                 <th>Dia</th>
@@ -87,6 +91,8 @@ document.getElementById('sueldo').innerHTML=datos['sueldo'];
 document.getElementById('sexo').innerHTML=datos['sexo'];
 document.getElementById('estadocivil').innerHTML=datos['estadocivil'];
 document.getElementById('curp').innerHTML=datos['curp'];
+document.getElementById('fechainicio').innerHTML=datos['fechainicio'];
+
 agregarDatos('Lunes',datos['horarioentradalunes'],datos['horariosalidalunes']);
 agregarDatos('Martes',datos['horarioentradamartes'],datos['horariosalidamartes']);
 agregarDatos('Miercoles',datos['horarioentradamiercoles'],datos['horariosalidamiercoles']);
