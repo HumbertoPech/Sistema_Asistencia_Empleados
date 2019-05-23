@@ -21,7 +21,7 @@ if(isset($_GET['id_usuario'])){
 
 
 if(isset($_POST['update'])){
-    echo "si";
+    echo "paso";
     $id=$_GET['id_usuario'];
     $fecha_inicio = new DateTime($_POST['fecha_inicio']);
     $fecha_inicio = $fecha_inicio->format('Y-m-d');
@@ -67,7 +67,7 @@ if (isset($_POST['delete'])) {
                         <input class="form-control" type="date" name="fecha_termino" id="fecha_termino" value="">
                     </div>
                     
-                    <a href="#" class="btn btn-success text-white" name="update" id="boton" data-type="suspensiones_empleado" data-id="<?php echo $_GET['id_usuario'];?>">
+                    <a onclick="enviar()" class="btn btn-success text-white" name="update" id="boton" data-type="suspensiones_empleado" data-id="<?php echo $_GET['id_usuario'];?>">
                         Update
                     </a>
                 
@@ -128,6 +128,12 @@ if (isset($_POST['delete'])) {
         </div>
     </div>
 </div>
+<script>
+function enviar(){
+    console.log("paso");
+    window.location.href="?id_usuario="+document.getElementById('id_user').value + "&update=true&fecha_inicio="+document.getElementById('fecha_inicio').value+"&fecha_termino="+document.getElementById('fecha_termino').value;
+}
+</script>
 
-
-<?php require("../../resources/html/footer_admin_empleados.html");?>
+<?php require("../../resources/html/footer_admin_empleados.html");
+echo "<button id='id_user' type='hidden' value='$id'></button>";?>
