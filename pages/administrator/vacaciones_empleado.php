@@ -20,18 +20,20 @@ if(isset($_GET['id_usuario'])){
 }
 
 
-if(isset($_POST['update'])){
-    echo "si";
+if(isset($_GET['update'])){
+
     $id=$_GET['id_usuario'];
-    $fecha_inicio = new DateTime($_POST['fecha_inicio']);
+    $gestor = fopen("bitacora.txt","a+");
+    
+    $fecha_inicio = new DateTime($_GET['fecha_inicio']);
     $fecha_inicio = $fecha_inicio->format('Y-m-d');
-    $fecha_termino = new DateTime($_POST['fecha_termino']);
+    $fecha_termino = new DateTime($_GET['fecha_termino']);
     $fecha_termino = $fecha_termino->format('Y-m-d');
 
     $query = "INSERT into vacaciones_empleados(id_empleado, fecha_inicio, fecha_termino) VALUES ($id,'$fecha_inicio', '$fecha_termino')";
- 
+    fwrite($gestor,"QUERY=>$query");
     if($conexion){
-        var_dump($result);
+        //var_dump($result);
         $resultado = $conexion->query($query);
     }
 }
@@ -67,7 +69,7 @@ if (isset($_POST['delete'])) {
                         <input class="form-control" type="date" name="fecha_termino" id="fecha_termino" value="">
                     </div>
                     
-                    <a href="#" class="btn btn-success text-white" name="update" id="boton" data-type="vacaciones_empleado" data-id="<?php echo $_GET['id_usuario'];?>">
+                    <a onclick = "enviar()"  class="btn btn-success text-white" name="update" id="boton" data-type="vacaciones_empleado" data-id="<?php echo $_GET['id_usuario'];?>">
                         Update
                     </a>
                 
@@ -76,7 +78,12 @@ if (isset($_POST['delete'])) {
         </div>
     </div>
 </div>
-
+<script>
+function enviar(){
+    console.log("paso");
+    window.location.href="?id_usuario="+document.getElementById('id_user').value + "&update=true&fecha_inicio="+document.getElementById('fecha_inicio').value+"&fecha_termino="+document.getElementById('fecha_termino').value;
+}
+</script>
 <div class="container p-6">
     <div class="row">
         <div class="col-md-9">
@@ -130,4 +137,5 @@ if (isset($_POST['delete'])) {
 </div>
 
 
-<?php require("../../resources/html/footer_admin_empleados.html");?>
+<?php require("../../resources/html/footer_admin_empleados.html");
+echo "<button id='id_user' type='hidden' value='$id'></button>";?>

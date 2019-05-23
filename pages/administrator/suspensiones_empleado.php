@@ -3,8 +3,8 @@ include("../../core/conexion.php");
 $con = new Conexion();
 $conexion = $con->get_conexion(); 
 
-if(isset($_GET['id_trabajo_diario'])){
-    $id = $_GET['id_trabajo_diario'];
+if(isset($_GET['id_usuario'])){
+    $id = $_GET['id_usuario'];
     $query = "SELECT emp.*, vac.fecha_inicio as fecha_inicio_vac, vac.fecha_termino as fecha_termino_vac, susp.fecha_inicio as fecha_inicio_susp, susp.fecha_termino as fecha_termino_susp FROM empleados emp left join vacaciones_empleados vac on emp.id = vac.id_empleado left join suspension_empleados susp on emp.id = susp.id_empleado WHERE emp.id = $id";
     //$conexion = $con->get_conexion(); 
     if($conexion){
