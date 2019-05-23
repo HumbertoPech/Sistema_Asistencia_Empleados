@@ -57,7 +57,7 @@ if($conexion){
     }
 }
 
-$conexion = $con->close_conexion();  
+//$conexion = $con->close_conexion();  
 
 
 ?>          

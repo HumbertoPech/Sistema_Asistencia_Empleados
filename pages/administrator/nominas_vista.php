@@ -48,6 +48,7 @@
         
             </div>
             <p>
+                <label>Buscar por fecha y nombre de empleado</label><br>
                 <label>Fecha de comienzo: <input id="fecha_inicio" name="fecha_inicio" type="date"></input></label> &nbsp;&nbsp;&nbsp;&nbsp;  <br>                        
                 <label>Fecha de término: <input id="fecha_fin" name="fecha_fin" type="date"></input></label>
             </p>
@@ -59,7 +60,7 @@
         </div>
         <button onclick="busquedaPorFecha();">Buscar</button>
     </div>
-<   </div>  
+   </div>  
 
 
     <div id="datos">

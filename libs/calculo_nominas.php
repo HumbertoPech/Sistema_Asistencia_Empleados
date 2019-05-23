@@ -1,7 +1,7 @@
 <?php
     date_default_timezone_set("America/Mexico_City");
     $fecha_hoy = date("d-m-Y");
-    //$fecha_hoy = date('20-04-2019'); //poner en comentarios
+    //$fecha_hoy = date('20-05-2019'); //poner en comentarios
     $fecha_inicio_semana;
     $fecha_fin_semana;
     $dias_festivos = array();
@@ -94,7 +94,6 @@
                 $empleado_info['horas trabajadas'] = $horas_trabajadas;
                 $sueldo_semanal = $sueldo_semanal + $horas_trabajadas*$empleado_info['sueldo base'];
                 $empleado_info['sueldo semanal'] = $sueldo_semanal;
-                //var_dump($empleado_info);
                 guardarSueldoSemanal($empleado_info);
             }
         }
@@ -103,7 +102,6 @@
         echo "alert('Error con la conexion de base de datos');";
         echo "</script>";
     }    
-    //var_dump(sizeof($dias_festivos));
     //$conexion = $con->close_conexion();  
 }
 function getDiasEnSuspension($id_empleado){
@@ -162,13 +160,12 @@ function getDiasEnSuspension($id_empleado){
   function obtenerHorasTrabajadas($id_empleado){
     global $fecha_fin_semana, $fecha_inicio_semana, $conexion, $con;
     $sql = "SELECT * FROM trabajo_diario WHERE horas_trabajadas is not null AND id_empleado = '$id_empleado' AND fecha BETWEEN '$fecha_inicio_semana' AND '$fecha_fin_semana'";
-    $horas_trabajadas = 0;
+    $horas_trabajadas = 0.0;
 
     if($conexion){
         $resultado = $conexion->query($sql);
         if (!empty($resultado)) {
             while($trabajo_diario = $resultado->fetch_array()){
-                //var_dump($trabajo_diario);
                 $horas_trabajadas = $horas_trabajadas + $trabajo_diario['horas_trabajadas'];       
             }
         }
@@ -228,7 +225,7 @@ function getDiasEnSuspension($id_empleado){
         echo "alert('Error con la conexion de base de datos');";
         echo "</script>";
     }
-    $conexion = $con->close_conexion();  
+    //$conexion = $con->close_conexion();  
 }
   calcularSueldosSemanales();
 ?>

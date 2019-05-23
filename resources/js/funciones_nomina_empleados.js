@@ -60,7 +60,7 @@ function validarCalculoNominas(){
     var date = new Date().toLocaleString("en-US", {timeZone: "America/Mexico_City"});
     console.log(date);
     var dia_hoy = new Date(date);
-    if(dia_hoy.getDay()!=LUNES){
+    if(dia_hoy.getDay()==LUNES){
         var texto = document.getElementById("txtnom").value;
         var parametros = {
             "texto" : texto,
@@ -74,6 +74,6 @@ function validarCalculoNominas(){
             }
         });           
     }else{
-        alert("No puedes calcular la nomina en otro día que no sea Lunes");
+        alert("No puedes calcular la nomina en otro día que no sea LunesAAA");
     }
 }

@@ -11,27 +11,26 @@ if(isset($_GET['id_trabajo_diario'])){
 if(isset($_POST["dato_final"])){
     
     $dato_final = $_POST['dato_final'];
-    $tipo = $_POST['tipo'];
     $descripcion = $_POST['descripcion'];
     $id = $_POST['id'];
-    $query = "INSERT into solucion_pendientes (id_trabajo_diario, dato_original, dato_final, tipo, descripcion) values ($id, '$dato_final', '$dato_final', '$tipo', '$descripcion')";
+    $query = "INSERT into solucion_pendientes (id_trabajo_diario, dato_original, dato_final, descripcion) values ($id, '$dato_final', '$dato_final', '$descripcion')";
     if($conexion){
         $resultado = $conexion->query($query);
         $query2 = "SELECT * from  trabajo_diario where id = $id";
         $resultado2 = $conexion->query($query2);
-
         while($row = $resultado2->fetch_array()){
             $query3="";
+            $query4="";
             if(!isset($row['hora_entrada'])){
-                
+                $query4 = "UPDATE solucion_pendientes SET tipo = 'E' where id_trabajo_diario = $id";
                 $query3 = "UPDATE trabajo_diario SET hora_entrada ='$dato_final' where id = $id";
             }else if(!isset($row['hora_salida'])){
+                $query4 = "UPDATE solucion_pendientes SET tipo = 'S' where id_trabajo_diario = $id";
                 $query3 = "UPDATE trabajo_diario SET hora_salida ='$dato_final' where id = $id";
             }
+            $resultado4 = $conexion->query($query4);
             $resultado3 = $conexion->query($query3);
             calcularHorasDiarias($id);
-            
-
         }
         header("Location: modulo_pendientes.php");
 
@@ -54,8 +53,7 @@ function calcularHorasDiarias($id){
                     //Descontar los minutos que se pasó del horario de entrada			
                     $intervaloTrabajado= $registroEntrada->diff($registroSalida);//Calcular cuantas horas trabajó sin el retardo 
                     //Unidades de horas trabajadas= horas. Los minutos se transforman en unidades de horas.
-                    $horasTrabajadas = (($intervaloTrabajado->h)-1) + (($intervaloTrabajado->i)/60);//Descontarle 1 hora al total de horas trabajadas.
-
+                    $horasTrabajadas = ($intervaloTrabajado->h) + (($intervaloTrabajado->i)/60);//Descontarle 1 hora al total de horas trabajadas.
                     
                     $query= "UPDATE `trabajo_diario` SET `horas_trabajadas`= ' ".$horasTrabajadas."' WHERE `id`= '".$id."'";
                     $resultado = $conexion->query($query);
@@ -96,13 +94,10 @@ include("../../resources/html/header_admin_empleados.html");?>
                 <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
                     <p hidden id="hora_ini">Dato original:</p>
                     <input type="hidden" id="id" name="id" value=<?php echo $id?>>
+                    
                     <p>Dato final: <input type="time" name = "dato_final" id="dato_final" min="08:00" max="20:00" step="600" required></p>
-                    <label>Tipo de pendiente:</label>
-                    <SELECT NAME="tipo" name="tipo" id="tipo" SIZE=1> 
-                        <OPTION VALUE="E">Entrada</OPTION>
-                        <OPTION VALUE="S">Salida</OPTION> 
-                    </SELECT> 
-                    <p>Descripción de solución: <input type="text" name="descripcion" id="descripcion"></p>
+                    <p>Descripción de la solución</p>
+                    <textarea name="descripcion" cols="40" rows="5"></textarea>
                     <input type="submit">
                 </form>
             </div>

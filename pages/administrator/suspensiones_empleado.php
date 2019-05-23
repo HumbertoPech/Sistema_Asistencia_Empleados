@@ -38,7 +38,7 @@ if(isset($_GET['update'])){
 
 if (isset($_POST['delete'])) {
     if($conexion){
-        $query = "SELECT id from suspension_empleados where id_empleado = ".$_POST['id_emplado']." order by id desc limit 1";
+        $query = "SELECT id from suspension_empleados where id_empleado = ".$_POST['id_empleado']." order by id desc limit 1";
         $resultado = $conexion->query($query);
         $last = mysqli_fetch_array($resultado);
         $query2 = "DELETE from suspension_empleados where id = ".$last['id']."";
