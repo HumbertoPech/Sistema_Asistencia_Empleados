@@ -90,7 +90,7 @@ if (isset($_POST['delete'])) {
 function enviar(){
     console.log("paso");
     console.log(document.getElementById('fecha_inicio').value);
-    if(document.getElementById('fecha_inicio').value=="" || document.getElementById('fecha_termino').value){
+    if(document.getElementById('fecha_inicio').value=="" || document.getElementById('fecha_termino').value==""){
         alert("Seleccione fechas");
         return;
     }
